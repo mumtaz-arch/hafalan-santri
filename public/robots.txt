@@ -1,0 +1,22 @@
+User-agent: *
+Disallow: /login
+Disallow: /register
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /santri/
+Disallow: /ustad/
+Disallow: /export/
+
+Sitemap: https://hafalansantri.maknende.ac.id/sitemap.xml
+
+# Allow access to assets
+Allow: /storage/
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Crawl-delay for search engines
+Crawl-delay: 10
+
+# Host
+Host: https://hafalansantri.maknende.ac.id

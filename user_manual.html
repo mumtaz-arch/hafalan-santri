@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Pengguna - MAKN Ende</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .step-number {
+            background-color: #0d5f3c;
+            /* Islamic Green */
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Navbar -->
+    <nav class="bg-green-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 pb-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl font-bold"><i class="fas fa-book-open mr-2"></i> User Manual</h1>
+                <div class="text-sm">Sistem Kontrol Hafalan Santri</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-5xl mx-auto px-4 py-10">
+
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="text-4xl font-bold text-green-800 mb-4">Panduan Pengguna Sistem</h1>
+            <p class="text-xl text-gray-600">Aplikasi Kontrol Hafalan Santri MAKN Ende</p>
+        </header>
+
+        <!-- Table of Contents -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-10">
+            <h2 class="text-lg font-bold mb-4 border-b pb-2">Daftar Isi</h2>
+            <ul class="list-disc pl-5 space-y-2 text-green-700">
+                <li><a href="#umum" class="hover:underline">Umum & Login</a></li>
+                <li><a href="#santri" class="hover:underline">Panduan untuk Santri</a></li>
+                <li><a href="#ustad" class="hover:underline">Panduan untuk Ustad / Admin</a></li>
+            </ul>
+        </div>
+
+        <!-- Section: Umum -->
+        <section id="umum" class="mb-16">
+            <h2 class="text-2xl font-bold text-green-800 mb-6 flex items-center">
+                <i class="fas fa-key mr-3"></i> 1. Akses Sistem & Login
+            </h2>
+            <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
+                <div class="flex items-start">
+                    <span class="step-number">1</span>
+                    <div>
+                        <h3 class="font-bold">Buka Aplikasi</h3>
+                        <p class="text-gray-600">Akses alamat web aplikasi melalui browser (Chrome/Firefox/Edge).</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <span class="step-number">2</span>
+                    <div>
+                        <h3 class="font-bold">Halaman Login</h3>
+                        <p class="text-gray-600">Masukkan <strong>Email</strong> (atau NISN) dan
+                            <strong>Password</strong> anda.</p>
+                        <p class="text-sm text-gray-500 italic mt-1">Default role akan diarahkan otomatis ke halaman
+                            yang sesuai (Santri atau Ustad).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Santri -->
+        <section id="santri" class="mb-16">
+            <h2 class="text-2xl font-bold text-green-800 mb-6 flex items-center">
+                <i class="fas fa-user-graduate mr-3"></i> 2. Panduan Santri
+            </h2>
+
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-bold mb-4 text-green-700">A. Melakukan Setoran Hafalan</h3>
+                <ol class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="step-number">1</span>
+                        <p>Klik menu <strong>Hafalan Saya</strong> atau tombol microphone di Dashboard.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="step-number">2</span>
+                        <p>Pilih <strong>Surah</strong> yang akan disetorkan dari daftar dropdown.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="step-number">3</span>
+                        <div>
+                            <p>Ada dua cara input:</p>
+                            <ul class="list-disc pl-5 mt-1 text-gray-600">
+                                <li><strong>Rekam Langsung:</strong> Klik tombol rekam, ucapkan hafalan, lalu stop.</li>
+                                <li><strong>Upload File:</strong> Pilih file audio (.mp3/.wav, maks 5MB) dari HP/Laptop.
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="step-number">4</span>
+                        <p>Klik konfirmasi untuk mengirim. Status akan menjadi <strong>Pending</strong>.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-4 text-green-700">B. Melihat Hasil Review</h3>
+                <p class="text-gray-600 mb-2">Setelah Ustad melakukan review, status akan berubah:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-green-50 p-3 rounded border border-green-200">
+                        <span class="font-bold text-green-700"><i class="fas fa-check-circle"></i> Approved
+                            (Lulus)</span>
+                        <p class="text-sm">Hafalan diterima, skor Ditambahkan.</p>
+                    </div>
+                    <div class="bg-red-50 p-3 rounded border border-red-200">
+                        <span class="font-bold text-red-700"><i class="fas fa-times-circle"></i> Rejected (Ulang)</span>
+                        <p class="text-sm">Hafalan perlu diulang. Lihat feedback ustad.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Ustad -->
+        <section id="ustad" class="mb-16">
+            <h2 class="text-2xl font-bold text-green-800 mb-6 flex items-center">
+                <i class="fas fa-chalkboard-teacher mr-3"></i> 3. Panduan Ustad / Admin
+            </h2>
+
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-bold mb-4 text-green-700">A. Review Hafalan Masuk</h3>
+                <ol class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="step-number">1</span>
+                        <p>Masuk ke menu <strong>Review Hafalan</strong>. Tabel akan menampilkan submission status
+                            <strong>Pending</strong>.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="step-number">2</span>
+                        <p>Klik tombol <strong>Review</strong> atau ikon detail pada baris santri.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="step-number">3</span>
+                        <p>Dengarkan audio hafalan pada player yang tersedia.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="step-number">4</span>
+                        <p>Berikan <strong>Nilai (Score)</strong> dan <strong>Komentar/Feedback</strong> koreksi
+                            tajwid/makhraj.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="step-number">5</span>
+                        <p>Klik <strong>Approve</strong> (Terima) atau <strong>Reject</strong> (Tolak minta ulang).</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h3 class="text-xl font-bold mb-4 text-green-700">B. Manajemen Data</h3>
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>
+                        <strong>Data Santri:</strong> Tambah/Edit/Hapus akun santri, reset password santri.
+                    </li>
+                    <li>
+                        <strong>Data Hafalan:</strong> Input target surah dan jumlah ayat.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-4 text-green-700">C. Export Laporan</h3>
+                <p class="text-gray-600">Klik menu <strong>Export / Laporan</strong>. Anda dapat mengunduh:</p>
+                <div class="mt-3 flex gap-2 flex-wrap">
+                    <span class="px-3 py-1 bg-gray-200 rounded text-sm"><i class="fas fa-file-excel"></i> Laporan
+                        Santri</span>
+                    <span class="px-3 py-1 bg-gray-200 rounded text-sm"><i class="fas fa-file-excel"></i> Laporan
+                        Hafalan</span>
+                    <span class="px-3 py-1 bg-gray-200 rounded text-sm"><i class="fas fa-file-excel"></i> Statistik
+                        Kemajuan</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-gray-500 mt-20 border-t pt-10">
+            <p>MAKN Ende &copy; 2025</p>
+            <p class="text-sm mt-1">Kontrol Hafalan Santri v1.0</p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Sistem - Kontrol Hafalan Santri MAKN Ende</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .document {
+            max-width: 210mm;
+            /* A4 width */
+            margin: 0 auto;
+            background: white;
+            padding: 25mm;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0d5f3c;
+            /* Islamic Green */
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #15803d;
+            /* Green 700 */
+            margin-top: 40px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: #374151;
+            margin-top: 25px;
+        }
+
+        ul,
+        ol {
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        code {
+            background-color: #f3f4f6;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #d97706;
+        }
+
+        pre {
+            background-color: #1f2937;
+            color: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .mermaid {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9fafb;
+        }
+
+        .toc {
+            background-color: #f0fdf4;
+            /* Light green bg */
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #bbf7d0;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc a {
+            text-decoration: none;
+            color: #15803d;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .document {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="document">
+        <h1>Dokumentasi Sistem - Kontrol Hafalan Santri MAKN Ende</h1>
+
+        <div class="toc">
+            <h3>Daftar Isi</h3>
+            <ul>
+                <li><a href="#ringkasan">1. Ringkasan Sistem</a></li>
+                <li><a href="#usecase">2. Use Case Diagram</a></li>
+                <li><a href="#erd">3. Entity Relationship Diagram (ERD)</a></li>
+                <li><a href="#bpmn">4. Business Process Model Notation (BPMN)</a></li>
+                <li><a href="#dfd">5. Data Flow Diagram (DFD)</a></li>
+                <li><a href="#tech">6. Teknologi Stack</a></li>
+                <li><a href="#features">7. Fitur Utama</a></li>
+            </ul>
+        </div>
+
+        <h2 id="ringkasan">1. Ringkasan Sistem</h2>
+        <p><strong>Kontrol Hafalan Santri MAKN Ende</strong> adalah sistem informasi berbasis web yang dirancang untuk
+            mendigitalisasi proses penyetoran, pencatatan, dan pemantauan hafalan Al-Qur'an santri. Sistem ini
+            menggantikan metode kartu kontrol manual dengan aplikasi yang dapat diakses dari mana saja.</p>
+
+        <h3>Pengguna Sistem</h3>
+        <ul>
+            <li><strong>Santri</strong>: Menyetorkan hafalan (rekaman/file), melihat riwayat hafalan, dan memantau
+                progress pribadi.</li>
+            <li><strong>Ustad/Admin</strong>: Mereview setoran hafalan, memberikan nilai & feedback, mengelola data
+                master (santri, target hafalan), dan mencetak laporan.</li>
+        </ul>
+
+        <h2 id="usecase">2. Use Case Diagram</h2>
+        <div class="mermaid">
+            usecaseDiagram
+            actor "Santri" as S
+            actor "Ustad / Admin" as A
+
+            package "Sistem Hafalan" {
+            usecase "Login" as UC1
+            usecase "Logout" as UC2
+            usecase "Lihat Dashboard" as UC3
+            usecase "Upload/Rekam Hafalan" as UC4
+            usecase "Lihat Riwayat Hafalan" as UC5
+            usecase "Review Hafalan" as UC6
+            usecase "Kelola Data Hafalan" as UC7
+            usecase "Kelola Data Santri" as UC8
+            usecase "Export Laporan" as UC9
+            }
+
+            S --> UC1
+            S --> UC2
+            S --> UC3
+            S --> UC4
+            S --> UC5
+
+            A --> UC1
+            A --> UC2
+            A --> UC3
+            A --> UC6
+            A --> UC7
+            A --> UC8
+            A --> UC9
+        </div>
+
+        <h3>Deskripsi Use Cases</h3>
+        <h4>Santri</h4>
+        <ul>
+            <li><strong>Upload/Rekam Hafalan</strong>: Santri dapat merekam suara langsung di browser atau mengupload
+                file audio hafalan.</li>
+            <li><strong>Lihat Riwayat</strong>: Santri dapat melihat status setoran (Pending, Approved, Rejected)
+                beserta nilai dan komentar ustad.</li>
+        </ul>
+
+        <h4>Ustad / Admin</h4>
+        <ul>
+            <li><strong>Review Hafalan</strong>: Mendengarkan setoran santri, memberikan nilai, dan status kelulusan.
+            </li>
+            <li><strong>Kelola Data</strong>: Mengatur data santri (reset password) dan data target hafalan.</li>
+            <li><strong>Export Laporan</strong>: Mengunduh rekapitulasi hafalan dalam format Excel.</li>
+        </ul>
+
+        <h2 id="erd">3. Entity Relationship Diagram (ERD)</h2>
+        <div class="mermaid">
+            erDiagram
+            USERS ||--o{ VOICE_SUBMISSIONS : "melakukan"
+            USERS {
+            bigint id PK
+            string name
+            string email
+            string password
+            enum role "santri, ustad"
+            string nisn
+            }
+
+            HAFALANS ||--o{ VOICE_SUBMISSIONS : "target"
+            HAFALANS {
+            bigint id PK
+            string nama_surah
+            integer nomor_surah
+            integer jumlah_ayat
+            }
+
+            VOICE_SUBMISSIONS {
+            bigint id PK
+            foreign_id user_id FK
+            foreign_id hafalan_id FK
+            string voice_file_path
+            enum status "pending, approved, rejected"
+            text feedback
+            integer score
+            timestamp reviewed_at
+            }
+        </div>
+
+        <h2 id="bpmn">4. Business Process Model Notation (BPMN)</h2>
+        <p>Alur proses penyetoran dan review hafalan:</p>
+        <div class="mermaid">
+            flowchart TD
+            subgraph Santri
+            Start([Mulai]) --> LoginS[Login]
+            LoginS --> PilihS[Pilih Surah]
+            PilihS --> Rekam[Rekam/Upload]
+            Rekam --> Kirim[Kirim Setoran]
+            Kirim --> Tunggu[Menunggu Review]
+            Terima[Lihat Hasil] --> FinishS([Selesai])
+            end
+
+            subgraph Sistem
+            Simpan[Simpan Data & File]
+            Notif[Update Dashboard]
+            end
+
+            subgraph Ustad
+            LoginU[Login] --> Cek[Cek Inbox]
+            Cek --> Dengar[Dengar Hafalan]
+            Dengar --> Nilai[Input Nilai & Feedback]
+            Nilai --> SubmitReview[Submit Review]
+            end
+
+            Kirim --> Simpan
+            Simpan --> Cek
+            SubmitReview --> Notif
+            Notif --> Terima
+        </div>
+
+        <h2 id="dfd">5. Data Flow Diagram (DFD)</h2>
+        <h3>Level 0 - Context Diagram</h3>
+        <div class="mermaid">
+            flowchart LR
+            E1[Santri] -- Data Login, Audio Hafalan --> P1((Sistem Kontrol Hafalan))
+            P1 -- Status, Nilai, Feedback --> E1
+
+            E2[Ustad/Admin] -- Data Login, Hasil Review --> P1
+            E2 -- Data Master, Request Laporan --> P1
+            P1 -- Laporan, Notifikasi Submission --> E2
+        </div>
+
+        <h2 id="tech">6. Teknologi Stack</h2>
+        <h3>Backend</h3>
+        <ul>
+            <li><strong>Framework</strong>: Laravel 11.x</li>
+            <li><strong>Database</strong>: MySQL / MariaDB</li>
+            <li><strong>Authentication</strong>: Laravel Breeze (Customized)</li>
+        </ul>
+
+        <h3>Frontend</h3>
+        <ul>
+            <li><strong>Templating</strong>: Laravel Blade</li>
+            <li><strong>CSS Framework</strong>: Tailwind CSS</li>
+            <li><strong>Icons</strong>: FontAwesome</li>
+            <li><strong>Audio</strong>: HTML5 Audio API</li>
+        </ul>
+
+        <h2 id="features">7. Fitur Utama</h2>
+        <h3>7.1 Manajemen Hafalan</h3>
+        <ul>
+            <li>✅ Input master data surah dan target ayat.</li>
+            <li>✅ Tracking progress per santri.</li>
+        </ul>
+
+        <h3>7.2 Voice Submission System</h3>
+        <ul>
+            <li>✅ Perekaman suara langsung (Web Audio API).</li>
+            <li>✅ Upload file audio (MP3/WAV/M4A).</li>
+            <li>✅ Playback audio untuk review.</li>
+        </ul>
+
+        <h3>7.3 Penilaian & Reporting</h3>
+        <ul>
+            <li>✅ Scoring system (Nilai angka).</li>
+            <li>✅ Feedback text (Catatan perbaikan).</li>
+            <li>✅ Export Excel untuk rapor hafalan.</li>
+        </ul>
+
+        <hr>
+        <p style="text-align: center; color: #6b7280; font-size: 0.9em;">
+            <em>Dokumen ini dibuat secara otomatis oleh Sistem Kontrol Hafalan Santri MAKN Ende.</em><br>
+            Desember 2025
+        </p>
+    </div>
+
+    <!-- Mermaid JS -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+
+</html>
