@@ -90,15 +90,21 @@
                 
                 <div class="hidden md:flex md:items-center">
                     <div class="ml-4 flex items-center md:ml-6">
-                        <div class="relative">
-                            <div class="flex items-center text-white">
-                                <i class="fas fa-user-circle text-2xl mr-2"></i>
-                                <div class="text-sm">
-                                    <div class="font-medium">{{ auth()->user()->name }}</div>
-                                    <div class="text-green-200">{{ ucfirst(auth()->user()->role) }}</div>
+                        <a href="{{ route('profile.show') }}" class="flex items-center text-white hover:text-green-200 transition duration-150 mr-6">
+                            @if(auth()->user()->profile_photo)
+                                <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" 
+                                     alt="{{ auth()->user()->name }}"
+                                     class="h-10 w-10 rounded-full object-cover border-2 border-white mr-2">
+                            @else
+                                <div class="h-10 w-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-2">
+                                    <i class="fas fa-user text-white"></i>
                                 </div>
+                            @endif
+                            <div class="text-sm">
+                                <div class="font-medium">{{ auth()->user()->name }}</div>
+                                <div class="text-green-200">{{ ucfirst(auth()->user()->role) }}</div>
                             </div>
-                        </div>
+                        </a>
                         <form method="POST" action="{{ route('logout') }}" class="ml-4">
                             @csrf
                             <button type="submit" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">
