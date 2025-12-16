@@ -1,66 +1,264 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Kontrol Hafalan Santri MAKN Ende
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📚 Deskripsi Project
 
-## About Laravel
+**Sistem Kontrol Hafalan Santri MAKN Ende** adalah aplikasi web berbasis Laravel yang dirancang untuk mendigitalisasi proses penyetoran, pencatatan, dan pemantauan hafalan Al-Qur'an santri di Madrasah Aliyah Kejuruan Negeri Ende.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Fitur Utama:
+- 📱 **Santri**: Merekam/upload hafalan, melihat riwayat, dan tracking progress
+- 👨‍🏫 **Ustad/Admin**: Review hafalan, memberikan nilai & feedback, kelola data master
+- 🎙️ **Voice Recording**: Rekam suara langsung di browser atau upload file audio
+- 📊 **Dashboard**: Monitoring real-time status hafalan per santri
+- 📄 **Export**: Cetak laporan hafalan dalam format PDF
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🔧 Prasyarat
 
-## Learning Laravel
+Sebelum menjalankan project, pastikan sudah terinstall:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **PHP** >= 8.1
+- **Composer** (dependency manager PHP)
+- **Node.js** & **npm** (untuk asset front-end)
+- **MySQL** atau database lainnya
+- **Git** (untuk version control)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📦 Instalasi & Setup
 
-## Laravel Sponsors
+### 1. Clone Project
+```bash
+git clone <repository-url>
+cd benar\ -\ Copy
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Install Dependencies PHP
+```bash
+composer install
+```
 
-### Premium Partners
+### 3. Copy File Environment
+```bash
+cp .env.example .env
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 4. Generate Application Key
+```bash
+php artisan key:generate
+```
 
-## Contributing
+### 5. Konfigurasi Database
+Edit file `.env` dan sesuaikan konfigurasi database:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=hafalan_santri
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 6. Jalankan Migrasi Database
+```bash
+php artisan migrate
+```
 
-## Code of Conduct
+### 7. (Opsional) Seeding Data
+```bash
+php artisan db:seed
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 8. Install Dependencies Node.js
+```bash
+npm install
+```
 
-## Security Vulnerabilities
+### 9. Build Assets
+```bash
+npm run build
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Atau untuk development dengan auto-reload:
+```bash
+npm run dev
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🚀 Menjalankan Project
+
+### Development Server
+```bash
+php artisan serve
+```
+
+Project akan berjalan di: `http://localhost:8000`
+
+### Dengan File Watcher (Hot Reload)
+Di terminal terpisah, jalankan:
+```bash
+npm run dev
+```
+
+---
+
+## 👤 Akun Demo
+
+Setelah seeding, Anda bisa login dengan:
+
+**Ustad/Admin:**
+- Email: `ustad@example.com`
+- Password: `password`
+
+**Santri:**
+- Email: `santri@example.com`
+- Password: `password`
+
+---
+
+## 📁 Struktur Folder
+
+```
+benar - Copy/
+├── app/
+│   ├── Http/Controllers/      # Controller aplikasi
+│   ├── Models/                # Model database
+│   ├── Exceptions/            # Exception handling
+│   └── Providers/             # Service providers
+├── routes/                    # Route definitions
+├── resources/
+│   ├── views/                 # Blade templates
+│   ├── css/                   # CSS files
+│   └── js/                    # JavaScript files
+├── database/
+│   ├── migrations/            # Database migrations
+│   ├── seeders/               # Database seeders
+│   └── factories/             # Model factories
+├── config/                    # Configuration files
+├── storage/                   # File storage
+├── public/                    # Public assets
+└── tests/                     # Test files
+```
+
+---
+
+## 🔑 Role & Permission
+
+### Santri
+- ✅ Upload/Rekam hafalan
+- ✅ Lihat riwayat hafalan
+- ✅ Tracking progress
+- ✅ Lihat feedback dari ustad
+
+### Ustad/Admin
+- ✅ Review hafalan santri
+- ✅ Memberikan nilai & feedback
+- ✅ Kelola data santri
+- ✅ Kelola target hafalan
+- ✅ Export laporan
+
+---
+
+## 📝 Environment Variables Penting
+
+```env
+APP_NAME=HafalanSantri
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=hafalan_santri
+DB_USERNAME=root
+DB_PASSWORD=
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=465
+MAIL_USERNAME=your_email
+MAIL_PASSWORD=your_password
+```
+
+---
+
+## 🧪 Testing
+
+Jalankan unit tests:
+```bash
+php artisan test
+```
+
+Jalankan feature tests:
+```bash
+php artisan test --filter Feature
+```
+
+---
+
+## 📊 Database Diagram
+
+**Users Table:**
+- id, name, email, password, role (santri/ustad), nisn, kelas
+
+**Hafalans Table:**
+- id, nama_surah, juz, halaman
+
+**Voice Submissions Table:**
+- id, user_id (santri), hafalan_id, file_path, status (pending/approved/rejected), reviewed_by (ustad), nilai, feedback
+
+---
+
+## 🐛 Troubleshooting
+
+### Error: "Class 'PDO' not found"
+```bash
+# Install PHP MySQL extension
+# Windows: Edit php.ini dan uncomment: extension=pdo_mysql
+# Linux: apt-get install php8.1-mysql
+```
+
+### Error: "No supported encrypter found"
+```bash
+php artisan key:generate
+```
+
+### Storage symlink error
+```bash
+php artisan storage:link
+```
+
+### Permission error pada storage/logs
+```bash
+chmod -R 777 storage/
+chmod -R 777 bootstrap/cache/
+```
+
+---
+
+## 📞 Informasi Tambahan
+
+- **Framework**: Laravel 11
+- **Database**: MySQL
+- **Frontend**: Blade, Tailwind CSS
+- **Audio**: Web Audio API
+- **Build Tool**: Vite
+
+---
+
+## 📄 Lisensi
+
+Project ini dibuat untuk Madrasah Aliyah Kejuruan Negeri Ende.
+
+---
+
+## 👨‍💻 Support
+
+Untuk pertanyaan atau issue, silakan buat issue di repository atau hubungi tim development.
+
+---
+
+**Version**: 1.0.0  
+**Last Updated**: Desember 2025
