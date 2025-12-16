@@ -70,6 +70,12 @@ class AuthController extends Controller
             'role.in' => 'Role harus santri atau ustad',
         ]);
 
+        // Determine verification status based on role
+        $verificationStatus = 'verified'; // Default is verified
+        if ($request->role === 'ustad') {
+            $verificationStatus = 'pending'; // Ustad accounts need admin verification
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -77,9 +83,15 @@ class AuthController extends Controller
             'role' => $request->role, // Gunakan role dari request
             'nisn' => $request->nisn,
             'kelas' => $request->kelas,
+            'verification_status' => $verificationStatus,
         ]);
 
+        // Login user, but show different message for ustad pending verification
         Auth::login($user);
+
+        if ($request->role === 'ustad' && !$user->isVerified()) {
+            return redirect('/dashboard')->with('warning', 'Akun Anda telah terdaftar dan menunggu verifikasi oleh admin. Silakan menunggu konfirmasi dari admin sebelum dapat menggunakan fitur-fitur untuk ustad.');
+        }
 
         return redirect('/dashboard')->with('success', 'Registrasi berhasil!');
     }

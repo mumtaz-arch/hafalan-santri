@@ -76,14 +76,21 @@
                             <a href="{{ route('dashboard') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('dashboard') ? 'bg-green-700' : '' }}">
                                 <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
                             </a>
-                            <a href="{{ route('voice.index') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('voice.*') ? 'bg-green-700' : '' }}">
-                                <i class="fas fa-microphone mr-1"></i> 
-                                @if(auth()->user()->role === 'santri') 
-                                    Hafalan Saya 
-                                @else 
-                                    Review Hafalan 
-                                @endif
-                            </a>
+
+                            @if(auth()->user()->isAdmin())
+                                <a href="{{ route('admin.users.index') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('admin.*') ? 'bg-green-700' : '' }}">
+                                    <i class="fas fa-users mr-1"></i> Manajemen Pengguna
+                                </a>
+                            @else
+                                <a href="{{ route('voice.index') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('voice.*') ? 'bg-green-700' : '' }}">
+                                    <i class="fas fa-microphone mr-1"></i>
+                                    @if(auth()->user()->role === 'santri')
+                                        Hafalan Saya
+                                    @else
+                                        Review Hafalan
+                                    @endif
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -123,14 +130,22 @@
                 <a href="{{ route('dashboard') }}" class="text-white block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('dashboard') ? 'bg-green-700' : '' }}">
                     <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
                 </a>
-                <a href="{{ route('voice.index') }}" class="text-white block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('voice.*') ? 'bg-green-700' : '' }}">
-                    <i class="fas fa-microphone mr-2"></i> 
-                    @if(auth()->user()->role === 'santri') 
-                        Hafalan Saya 
-                    @else 
-                        Review Hafalan 
-                    @endif
-                </a>
+
+                @if(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.users.index') }}" class="text-white block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('admin.*') ? 'bg-green-700' : '' }}">
+                        <i class="fas fa-users mr-2"></i> Manajemen Pengguna
+                    </a>
+                @else
+                    <a href="{{ route('voice.index') }}" class="text-white block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('voice.*') ? 'bg-green-700' : '' }}">
+                        <i class="fas fa-microphone mr-2"></i>
+                        @if(auth()->user()->role === 'santri')
+                            Hafalan Saya
+                        @else
+                            Review Hafalan
+                        @endif
+                    </a>
+                @endif
+
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="text-white block px-3 py-2 rounded-md text-base font-medium w-full text-left">
@@ -144,6 +159,56 @@
 
     <!-- Main Content -->
     <main class="@auth py-6 @endauth">
+        <!-- Flash Messages -->
+        @if(session('success'))
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    <div class="flex">
+                        <i class="fas fa-check-circle mr-2 mt-0.5"></i>
+                        <div>{{ session('success') }}</div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if(session('warning'))
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+                    <div class="flex">
+                        <i class="fas fa-exclamation-circle mr-2 mt-0.5"></i>
+                        <div>{{ session('warning') }}</div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <div class="flex">
+                        <i class="fas fa-exclamation-circle mr-2 mt-0.5"></i>
+                        <div>{{ session('error') }}</div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        <!-- Error Messages -->
+        @if ($errors->any())
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <div class="flex">
+                        <i class="fas fa-exclamation-circle mr-2 mt-0.5"></i>
+                        <div>
+                            @foreach ($errors->all() as $error)
+                                <p class="text-sm">{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         @yield('content')
     </main>
 

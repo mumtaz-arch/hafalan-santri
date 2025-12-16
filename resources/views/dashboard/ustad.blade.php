@@ -12,7 +12,7 @@
             <i class="fas fa-user-graduate text-islamic-green mr-3"></i>
             Dashboard Ustad
         </h1>
-        <p class="text-gray-600 mt-2">Assalamu'alaikum, {{ auth()->user()->name }}!</p>
+        <p class="text-gray-600 mt-2">Assalamu'alaikum, ustad {{ auth()->user()->name }}!</p>
         <p class="text-sm text-gray-500">Kelola dan review hafalan santri MAKN Ende</p>
     </div>
 

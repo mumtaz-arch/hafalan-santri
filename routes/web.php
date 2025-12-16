@@ -51,19 +51,29 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:ustad,admin')->group(function () {
         // Voice submission review
         Route::patch('/voice-submission/{id}/review', [VoiceSubmissionController::class, 'review'])->name('voice.review');
-        
+
         // Hafalan management
         Route::resource('hafalan', HafalanController::class);
-        
+
         // Santri management
         Route::resource('santri', SantriController::class);
         Route::patch('/santri/{id}/reset-password', [SantriController::class, 'resetPassword'])->name('santri.reset-password');
-        
+
         // Export routes
         Route::get('/export', [ExportController::class, 'index'])->name('export.index');
         Route::get('/export/santri', [ExportController::class, 'exportSantri'])->name('export.santri');
         Route::get('/export/submissions', [ExportController::class, 'exportSubmissions'])->name('export.submissions');
         Route::get('/export/progress', [ExportController::class, 'exportProgress'])->name('export.progress');
         Route::get('/export/statistik', [ExportController::class, 'exportStatistik'])->name('export.statistik');
+    });
+
+    // Admin routes
+    Route::middleware('role:admin')->group(function () {
+        Route::prefix('admin')->name('admin.')->group(function () {
+            Route::get('/users', [AdminController::class, 'users'])->name('users.index');
+            Route::patch('/users/{id}/verify', [AdminController::class, 'verifyUser'])->name('users.verify');
+            Route::patch('/users/{id}/reject', [AdminController::class, 'rejectUser'])->name('users.reject');
+            Route::patch('/users/{id}/reset-verification', [AdminController::class, 'resetVerification'])->name('users.reset-verification');
+        });
     });
 });

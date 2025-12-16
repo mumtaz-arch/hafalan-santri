@@ -18,6 +18,9 @@ class User extends Authenticatable
         'nisn',
         'role',
         'kelas',
+        'verification_status',
+        'verified_at',
+        'verified_by',
     ];
 
     protected $hidden = [
@@ -30,6 +33,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'verified_at' => 'datetime',
         ];
     }
 
@@ -45,6 +49,28 @@ class User extends Authenticatable
         return $this->hasMany(VoiceSubmission::class, 'reviewed_by');
     }
 
+    // Relasi dengan admin yang melakukan verifikasi
+    public function verifier()
+    {
+        return $this->belongsTo(User::class, 'verified_by');
+    }
+
+    // Helper methods untuk verification status
+    public function isVerified()
+    {
+        return $this->verification_status === 'verified';
+    }
+
+    public function isPendingVerification()
+    {
+        return $this->verification_status === 'pending';
+    }
+
+    public function isRejected()
+    {
+        return $this->verification_status === 'rejected';
+    }
+
     // Helper method untuk mengecek role
     public function isSantri()
     {
@@ -55,12 +81,12 @@ class User extends Authenticatable
     {
         return $this->role === 'ustad';
     }
-    
+
     public function isAdmin()
     {
         return $this->role === 'admin';
     }
-    
+
     public function isRole($role)
     {
         return $this->role === $role;
