@@ -18,6 +18,7 @@ class User extends Authenticatable
         'nisn',
         'role',
         'kelas',
+        'profile_photo',
     ];
 
     protected $hidden = [

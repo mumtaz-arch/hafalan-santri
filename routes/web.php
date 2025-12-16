@@ -8,6 +8,7 @@ use App\Http\Controllers\HafalanController;
 use App\Http\Controllers\VoiceSubmissionController;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,11 @@ Route::middleware('auth')->group(function () {
     
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // Profile routes
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/photo', [ProfileController::class, 'deletePhoto'])->name('profile.deletePhoto');
     
     // Voice submission routes
     Route::get('/voice-submission', [VoiceSubmissionController::class, 'index'])->name('voice.index');
