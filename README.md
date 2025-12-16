@@ -29,8 +29,8 @@ Sebelum menjalankan project, pastikan sudah terinstall:
 
 ### 1. Clone Project
 ```bash
-git clone <repository-url>
-cd benar\ -\ Copy
+git clone https://github.com/mumtaz-arch/hafalan-santri.git
+cd hafalan-santri
 ```
 
 ### 2. Install Dependencies PHP
