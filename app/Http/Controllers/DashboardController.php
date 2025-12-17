@@ -47,7 +47,7 @@ class DashboardController extends Controller
 
         // Submission terbaru
         $recentSubmissions = VoiceSubmission::where('user_id', $user->id)
-            ->with('hafalan')
+            ->with(['hafalan', 'reviewer'])
             ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get();

@@ -18,7 +18,7 @@ class VoiceSubmissionController extends Controller
         if ($user->role === 'santri') {
             // Untuk santri, tampilkan submission mereka sendiri
             $submissions = VoiceSubmission::where('user_id', $user->id)
-                ->with('hafalan')  // Already optimized with eager loading
+                ->with(['hafalan', 'reviewer'])  // Already optimized with eager loading
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
             
@@ -234,12 +234,32 @@ class VoiceSubmissionController extends Controller
     public function show($id)
     {
         $submission = VoiceSubmission::with(['user', 'hafalan', 'reviewer'])->findOrFail($id);
-        
+
         $user = Auth::user();
-        
+
         // Pastikan santri hanya bisa melihat submission mereka sendiri
         if ($user->role === 'santri' && $submission->user_id !== $user->id) {
             abort(403, 'Anda tidak memiliki akses ke submission ini.');
+        }
+
+        // Return JSON response if AJAX request, otherwise return view
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'id' => $submission->id,
+                'user_id' => $submission->user_id,
+                'hafalan' => $submission->hafalan,
+                'voice_file_path' => $submission->voice_file_path,
+                'voice_url' => $submission->voice_url,
+                'status' => $submission->status,
+                'feedback' => $submission->feedback,
+                'score' => $submission->score,
+                'reviewer' => $submission->reviewer,
+                'reviewed_at' => $submission->reviewed_at,
+                'formatted_reviewed_at' => $submission->formatted_reviewed_at,
+                'created_at' => $submission->created_at,
+                'formatted_created_at' => $submission->formatted_created_at,
+                'status_badge' => $submission->status_badge,
+            ]);
         }
 
         // Generate SEO data
