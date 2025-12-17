@@ -262,17 +262,17 @@
     </div>
 
     <!-- Islamic Quote -->
-    <div class="mt-8 bg-gradient-to-r from-islamic-green to-green-600 rounded-lg shadow p-6 text-white">
-        <div class="text-center">
+    <div class="mt-8 bg-gradient-to-r from-islamic-green to-green-600 rounded-lg shadow p-6">
+        <div class="text-center text-white">
             <i class="fas fa-quote-left text-2xl mb-4 opacity-75"></i>
-            <p class="text-lg mb-2 font-medium">
+            <p class="text-lg mb-2 font-medium text-islamic-green">
                 "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ"
             </p>
-            <p class="text-sm opacity-90">
+            <p class="text-sm opacity-90 text-islamic-green">
                 "Sebaik-baik kalian adalah yang belajar Al-Qur'an dan mengajarkannya." (HR. Bukhari)
             </p>
             <div class="mt-4 pt-4 border-t border-green-500">
-                <p class="text-sm">
+                <p class="text-sm text-islamic-green">
                     <i class="fas fa-calendar-alt mr-2"></i>
                     {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
                 </p>

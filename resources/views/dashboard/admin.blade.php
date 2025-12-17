@@ -9,7 +9,7 @@
     <!-- Header -->
     <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-900">
-            <i class="fas fa-shield-alt text-blue-600 mr-3"></i>
+            <i class="fas fa-shield-alt text-green-600 mr-3"></i>
             Dashboard Admin
         </h1>
         <p class="text-gray-600 mt-2">Assalamu'alaikum, {{ auth()->user()->name }}!</p>
@@ -281,17 +281,17 @@
     </div>
 
     <!-- Islamic Quote -->
-    <div class="mt-8 bg-gradient-to-r from-islamic-green to-green-600 rounded-lg shadow p-6 text-white">
-        <div class="text-center">
+    <div class="mt-8 bg-gradient-to-r from-islamic-green to-green-600 rounded-lg shadow p-6">
+        <div class="text-center text-white">
             <i class="fas fa-quote-left text-2xl mb-4 opacity-75"></i>
-            <p class="text-lg mb-2 font-medium">
+            <p class="text-lg mb-2 font-medium text-islamic-green">
                 "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ"
             </p>
-            <p class="text-sm opacity-90">
+            <p class="text-sm opacity-90 text-islamic-green">
                 "Sesungguhnya amal itu bergantung pada niat." (HR. Bukhari & Muslim)
             </p>
             <div class="mt-4 pt-4 border-t border-green-500">
-                <p class="text-sm">
+                <p class="text-sm text-islamic-green">
                     <i class="fas fa-calendar-alt mr-2"></i>
                     {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
                 </p>
