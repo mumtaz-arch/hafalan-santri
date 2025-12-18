@@ -248,62 +248,7 @@
         </form>
     </div>
 
-    <!-- Account Statistics (Optional) -->
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-blue-100">
-                    <i class="fas fa-envelope text-blue-600 text-xl"></i>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Status Email</p>
-                    <p class="text-lg font-bold text-gray-900">
-                        @if($user->email_verified_at)
-                            <span class="text-green-600">Terverifikasi</span>
-                        @else
-                            <span class="text-yellow-600">Belum Terverifikasi</span>
-                        @endif
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-green-100">
-                    <i class="fas fa-user-check text-islamic-green text-xl"></i>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Status Profil</p>
-                    <p class="text-lg font-bold text-gray-900">
-                        @if($user->name && $user->email)
-                            <span class="text-green-600">Lengkap</span>
-                        @else
-                            <span class="text-yellow-600">Belum Lengkap</span>
-                        @endif
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-purple-100">
-                    <i class="fas fa-image text-purple-600 text-xl"></i>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Foto Profil</p>
-                    <p class="text-lg font-bold text-gray-900">
-                        @if($user->profile_photo)
-                            <span class="text-green-600">Tersedia</span>
-                        @else
-                            <span class="text-gray-600">Belum Ada</span>
-                        @endif
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 
 <!-- Image Preview Script -->
