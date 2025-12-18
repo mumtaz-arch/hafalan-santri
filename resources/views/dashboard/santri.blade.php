@@ -167,7 +167,7 @@
     </div>
 
     <!-- Quick Actions -->
-    <div class="mt-8 bg-white rounded-lg shadow p-6">
+    <!-- <div class="mt-8 bg-white rounded-lg shadow p-6">
         <h3 class="text-lg font-semibold text-gray-900 mb-4">
             <i class="fas fa-bolt text-islamic-green mr-2"></i>
             Aksi Cepat
@@ -203,7 +203,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Islamic Quote -->
     <div class="mt-8 bg-gradient-to-r from-islamic-green to-green-600 rounded-lg shadow p-6 text-white">
