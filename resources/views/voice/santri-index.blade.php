@@ -219,7 +219,7 @@
                                                 @if($submission->reviewer->profile_photo)
                                                     <img src="{{ asset('storage/' . $submission->reviewer->profile_photo) }}"
                                                          alt="{{ $submission->reviewer->name }}"
-                                                         class="h-6 w-6 rounded-full object-cover mr-2 border border-gray-300">
+                                                         class="h-6 w-6 rounded-full object-cover mr-2 border-gray-300">
                                                 @else
                                                     <i class="fas fa-user-check text-green-500 mr-1"></i>
                                                 @endif
@@ -233,7 +233,7 @@
                                                 @if($submission->reviewer && $submission->reviewer->profile_photo)
                                                     <img src="{{ asset('storage/' . $submission->reviewer->profile_photo) }}"
                                                          alt="{{ $submission->reviewer->name }}"
-                                                         class="h-6 w-6 rounded-full object-cover mr-2 border border-gray-300">
+                                                         class="h-6 w-6 rounded-full object-cover mr-2 border-gray-300">
                                                 @else
                                                     <i class="fas fa-user-slash text-gray-400 mr-1"></i>
                                                 @endif
@@ -440,7 +440,7 @@
                                 ${data.status !== 'pending' && data.reviewer ?
                                     `<span class="flex items-center">
                                         ${data.reviewer.profile_photo ?
-                                            '<img src="' + window.location.origin + '/storage/' + data.reviewer.profile_photo + '" alt="' + data.reviewer.name + '" class="h-6 w-6 rounded-full object-cover mr-2 border border-gray-300">' :
+                                            '<img src="' + window.location.origin + '/storage/' + data.reviewer.profile_photo + '" alt="' + data.reviewer.name + '" class="h-6 w-6 rounded-full object-cover mr-2 border-gray-300">' :
                                             '<i class="fas fa-user-check text-green-500 mr-1"></i>'
                                         }
                                         ${data.reviewer.name} ${data.formatted_reviewed_at ? '(' + data.formatted_reviewed_at + ')' : ''}

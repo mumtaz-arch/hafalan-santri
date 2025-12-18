@@ -95,7 +95,7 @@
                                                 @if($submission->user->profile_photo)
                                                     <img src="{{ asset('storage/' . $submission->user->profile_photo) }}"
                                                          alt="{{ $submission->user->name }}"
-                                                         class="h-10 w-10 rounded-full object-cover border-2 border-islamic-green">
+                                                         class="h-10 w-10 rounded-full object-cover border border-islamic-green">
                                                 @else
                                                     <div class="h-10 w-10 rounded-full bg-islamic-green flex items-center justify-center">
                                                         <span class="text-white font-medium text-sm">{{ substr($submission->user->name, 0, 2) }}</span>

@@ -101,7 +101,7 @@
                             @if(auth()->user()->profile_photo)
                                 <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" 
                                      alt="{{ auth()->user()->name }}"
-                                     class="h-10 w-10 rounded-full object-cover border-2 border-white mr-2">
+                                     class="h-10 w-10 rounded-full object-cover border border-white mr-2">
                             @else
                                 <div class="h-10 w-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-2">
                                     <i class="fas fa-user text-white"></i>

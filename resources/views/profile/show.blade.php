@@ -76,7 +76,7 @@
                         @if($user->profile_photo)
                             <img src="{{ asset('storage/' . $user->profile_photo) }}" 
                                  alt="{{ $user->name }}" 
-                                 class="h-32 w-32 rounded-full object-cover border-4 border-islamic-green">
+                                 class="h-32 w-32 rounded-full object-cover border border-islamic-green">
                         @else
                             <div class="h-32 w-32 rounded-full bg-gray-200 flex items-center justify-center border-4 border-gray-300">
                                 <i class="fas fa-user text-gray-400 text-4xl"></i>

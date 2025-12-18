@@ -41,7 +41,7 @@
                             @if($submission->user->profile_photo)
                                 <img src="{{ asset('storage/' . $submission->user->profile_photo) }}"
                                      alt="{{ $submission->user->name }}"
-                                     class="h-12 w-12 rounded-full object-cover mr-4 border-2 border-islamic-green">
+                                     class="h-12 w-12 rounded-full object-cover mr-4 border border-islamic-green">
                             @else
                                 <div class="h-12 w-12 rounded-full bg-islamic-green flex items-center justify-center mr-4">
                                     <span class="text-white font-medium">{{ substr($submission->user->name, 0, 2) }}</span>
@@ -144,7 +144,7 @@
                                 @if($submission->reviewer->profile_photo)
                                     <img src="{{ asset('storage/' . $submission->reviewer->profile_photo) }}"
                                          alt="{{ $submission->reviewer->name }}"
-                                         class="h-10 w-10 rounded-full object-cover mr-3 border border-gray-300">
+                                         class="h-10 w-10 rounded-full object-cover mr-3 border-gray-300">
                                 @else
                                     <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
                                         <span class="text-white font-medium text-sm">{{ substr($submission->reviewer->name, 0, 2) }}</span>

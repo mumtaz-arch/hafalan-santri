@@ -96,7 +96,7 @@
                                                 @if($santri->profile_photo)
                                                     <img src="{{ asset('storage/' . $santri->profile_photo) }}"
                                                          alt="{{ $santri->name }}"
-                                                         class="h-12 w-12 rounded-full object-cover border-2 border-islamic-green">
+                                                         class="h-12 w-12 rounded-full object-cover border border-islamic-green">
                                                 @else
                                                     <div class="h-12 w-12 rounded-full bg-islamic-green flex items-center justify-center">
                                                         <span class="text-white font-medium">{{ substr($santri->name, 0, 2) }}</span>
