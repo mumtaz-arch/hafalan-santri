@@ -187,7 +187,7 @@
                 <div class="text-center py-8">
                     <i class="fas fa-clock text-yellow-500 text-4xl mb-4"></i>
                     <h4 class="text-lg font-medium text-gray-900 mb-2">Menunggu Review</h4>
-                    <p class="text-gray-600">Submission Anda sedang menunggu review dari ustad</p>
+                    <p class="text-gray-600">Submission sedang menunggu review dari ustad</p>
                 </div>
             @endif
         </div>
