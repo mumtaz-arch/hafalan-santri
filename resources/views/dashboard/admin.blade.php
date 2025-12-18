@@ -57,27 +57,11 @@
             </div>
         </div>
 
-        <!-- Total Admin -->
+        <!-- Ustad Menunggu Verifikasi -->
         <div class="bg-white rounded-lg shadow p-6 border-l-4 border-purple-500">
             <div class="flex items-center">
                 <div class="p-3 rounded-full bg-purple-100 mr-4">
                     <i class="fas fa-crown text-purple-500 text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Total Admin</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ $totalAdmin }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Stats Cards Row 2 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <!-- Pending Verifications -->
-        <div class="bg-white rounded-lg shadow p-6 border-l-4 border-yellow-500 lg:col-span-2">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-yellow-100 mr-4">
-                    <i class="fas fa-clock text-yellow-500 text-xl"></i>
                 </div>
                 <div>
                     <p class="text-sm font-medium text-gray-600">Ustad Menunggu Verifikasi</p>
@@ -85,34 +69,9 @@
                 </div>
             </div>
         </div>
-
-        <!-- Verified Today -->
-        <div class="bg-white rounded-lg shadow p-6 border-l-4 border-green-500">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-green-100 mr-4">
-                    <i class="fas fa-check-circle text-green-500 text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Verified Hari Ini</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ \App\Models\User::where('verification_status', 'verified')->whereDate('verified_at', today())->count() }}</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- New Users Today -->
-        <div class="bg-white rounded-lg shadow p-6 border-l-4 border-indigo-500">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-indigo-100 mr-4">
-                    <i class="fas fa-user-plus text-indigo-500 text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Pengguna Baru Hari Ini</p>
-                    <p class="text-2xl font-bold text-gray-900">{{ \App\Models\User::whereDate('created_at', today())->count() }}</p>
-                </div>
-            </div>
-        </div>
     </div>
 
+    
     <!-- Unverified Ustad Accounts -->
     <div class="bg-white rounded-lg shadow mb-8">
         <div class="p-6 border-b border-gray-200">

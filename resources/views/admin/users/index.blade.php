@@ -93,9 +93,15 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
-                                            <div class="h-10 w-10 rounded-full bg-islamic-green flex items-center justify-center">
-                                                <span class="text-white font-medium">{{ substr($user->name, 0, 2) }}</span>
-                                            </div>
+                                            @if($user->profile_photo)
+                                                <img src="{{ asset('storage/' . $user->profile_photo) }}"
+                                                     alt="{{ $user->name }}"
+                                                     class="h-10 w-10 rounded-full object-cover border-2 border-islamic-green">
+                                            @else
+                                                <div class="h-10 w-10 rounded-full bg-islamic-green flex items-center justify-center">
+                                                    <span class="text-white font-medium">{{ substr($user->name, 0, 2) }}</span>
+                                                </div>
+                                            @endif
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">{{ $user->name }}</div>

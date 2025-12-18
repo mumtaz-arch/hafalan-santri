@@ -102,9 +102,15 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
-                                                <div class="h-10 w-10 rounded-full bg-islamic-green flex items-center justify-center">
-                                                    <span class="text-white font-medium">{{ substr($submission->user->name, 0, 2) }}</span>
-                                                </div>
+                                                @if($submission->user->profile_photo)
+                                                    <img src="{{ asset('storage/' . $submission->user->profile_photo) }}"
+                                                         alt="{{ $submission->user->name }}"
+                                                         class="h-10 w-10 rounded-full object-cover border-2 border-islamic-green">
+                                                @else
+                                                    <div class="h-10 w-10 rounded-full bg-islamic-green flex items-center justify-center">
+                                                        <span class="text-white font-medium">{{ substr($submission->user->name, 0, 2) }}</span>
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900">{{ $submission->user->name }}</div>
@@ -155,9 +161,15 @@
                         @foreach($recentActivities as $activity)
                             <div class="flex items-start space-x-3">
                                 <div class="flex-shrink-0">
-                                    <div class="h-8 w-8 rounded-full bg-{{ $activity->status === 'approved' ? 'green' : ($activity->status === 'rejected' ? 'red' : 'yellow') }}-100 flex items-center justify-center">
-                                        <i class="fas fa-{{ $activity->status === 'approved' ? 'check' : ($activity->status === 'rejected' ? 'times' : 'clock') }} text-{{ $activity->status === 'approved' ? 'green' : ($activity->status === 'rejected' ? 'red' : 'yellow') }}-600 text-xs"></i>
-                                    </div>
+                                    @if($activity->user->profile_photo)
+                                        <img src="{{ asset('storage/' . $activity->user->profile_photo) }}"
+                                             alt="{{ $activity->user->name }}"
+                                             class="h-8 w-8 rounded-full object-cover border border-gray-300">
+                                    @else
+                                        <div class="h-8 w-8 rounded-full bg-{{ $activity->status === 'approved' ? 'green' : ($activity->status === 'rejected' ? 'red' : 'yellow') }}-100 flex items-center justify-center">
+                                            <i class="fas fa-{{ $activity->status === 'approved' ? 'check' : ($activity->status === 'rejected' ? 'times' : 'clock') }} text-{{ $activity->status === 'approved' ? 'green' : ($activity->status === 'rejected' ? 'red' : 'yellow') }}-600 text-xs"></i>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <p class="text-sm text-gray-900">

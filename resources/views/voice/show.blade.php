@@ -38,9 +38,15 @@
                     <h4 class="text-sm font-medium text-gray-500 mb-3">INFORMASI SANTRI</h4>
                     <div class="space-y-3">
                         <div class="flex items-center">
-                            <div class="h-12 w-12 rounded-full bg-islamic-green flex items-center justify-center mr-4">
-                                <span class="text-white font-medium">{{ substr($submission->user->name, 0, 2) }}</span>
-                            </div>
+                            @if($submission->user->profile_photo)
+                                <img src="{{ asset('storage/' . $submission->user->profile_photo) }}"
+                                     alt="{{ $submission->user->name }}"
+                                     class="h-12 w-12 rounded-full object-cover mr-4 border-2 border-islamic-green">
+                            @else
+                                <div class="h-12 w-12 rounded-full bg-islamic-green flex items-center justify-center mr-4">
+                                    <span class="text-white font-medium">{{ substr($submission->user->name, 0, 2) }}</span>
+                                </div>
+                            @endif
                             <div>
                                 <p class="font-medium text-gray-900">{{ $submission->user->name }}</p>
                                 <p class="text-sm text-gray-500">{{ $submission->user->email }}</p>
@@ -135,9 +141,15 @@
                         <h4 class="text-sm font-medium text-gray-500 mb-3">DIREVIEW OLEH</h4>
                         @if($submission->reviewer)
                             <div class="flex items-center">
-                                <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
-                                    <span class="text-white font-medium text-sm">{{ substr($submission->reviewer->name, 0, 2) }}</span>
-                                </div>
+                                @if($submission->reviewer->profile_photo)
+                                    <img src="{{ asset('storage/' . $submission->reviewer->profile_photo) }}"
+                                         alt="{{ $submission->reviewer->name }}"
+                                         class="h-10 w-10 rounded-full object-cover mr-3 border border-gray-300">
+                                @else
+                                    <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
+                                        <span class="text-white font-medium text-sm">{{ substr($submission->reviewer->name, 0, 2) }}</span>
+                                    </div>
+                                @endif
                                 <div>
                                     <p class="font-medium text-gray-900">{{ $submission->reviewer->name }}</p>
                                     <p class="text-sm text-gray-500">{{ $submission->formatted_reviewed_at }}</p>

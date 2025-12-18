@@ -234,12 +234,12 @@
 
             <!-- Form Actions -->
             <div class="p-6 bg-gray-50 rounded-b-lg flex justify-between items-center">
-                <a href="{{ route('dashboard') }}" 
+                <a href="{{ route('dashboard') }}"
                    class="inline-flex items-center px-4 py-2 bg-gray-300 text-gray-900 font-medium rounded-lg hover:bg-gray-400 transition duration-150">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Kembali
                 </a>
-                <button type="submit" 
+                <button type="submit"
                         class="inline-flex items-center px-6 py-2 bg-islamic-green text-white font-medium rounded-lg hover:bg-green-700 transition duration-150">
                     <i class="fas fa-save mr-2"></i>
                     Simpan Perubahan
@@ -248,7 +248,82 @@
         </form>
     </div>
 
-    
+    <!-- Password Change Section -->
+    <div class="mt-8 bg-white rounded-lg shadow">
+        <div class="p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-6">
+                <i class="fas fa-key text-islamic-green mr-2"></i>
+                Ubah Password
+            </h3>
+
+            <form action="{{ route('profile.change-password') }}" method="POST">
+                @csrf
+
+                <div class="space-y-6">
+                    <!-- Current Password Field -->
+                    <div>
+                        <label for="current_password" class="block text-sm font-medium text-gray-700 mb-2">
+                            Password Saat Ini
+                        </label>
+                        <input type="password"
+                               name="current_password"
+                               id="current_password"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-islamic-green focus:ring-2 focus:ring-green-100"
+                               placeholder="Masukkan password saat ini"
+                               required>
+                        @error('current_password')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- New Password Field -->
+                    <div>
+                        <label for="new_password" class="block text-sm font-medium text-gray-700 mb-2">
+                            Password Baru
+                        </label>
+                        <input type="password"
+                               name="new_password"
+                               id="new_password"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-islamic-green focus:ring-2 focus:ring-green-100"
+                               placeholder="Masukkan password baru (minimal 8 karakter)"
+                               required>
+                        @error('new_password')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Confirm New Password Field -->
+                    <div>
+                        <label for="new_password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
+                            Konfirmasi Password Baru
+                        </label>
+                        <input type="password"
+                               name="new_password_confirmation"
+                               id="new_password_confirmation"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-islamic-green focus:ring-2 focus:ring-green-100"
+                               placeholder="Konfirmasi password baru"
+                               required>
+                    </div>
+
+                    <!-- Password Strength Indicator -->
+                    <div class="pt-2">
+                        <small class="text-gray-600">
+                            Password harus memiliki setidaknya 8 karakter dan mencakup huruf besar, huruf kecil, angka, dan simbol.
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Password Change Button -->
+                <div class="mt-6">
+                    <button type="submit"
+                            class="inline-flex items-center px-6 py-2 bg-islamic-green text-white font-medium rounded-lg hover:bg-green-700 transition duration-150">
+                        <i class="fas fa-key mr-2"></i>
+                        Ganti Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <!-- Image Preview Script -->
