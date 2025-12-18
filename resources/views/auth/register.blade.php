@@ -157,13 +157,18 @@
 
                 <!-- Submit Button -->
                 <div class="pt-4">
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-islamic-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-islamic-green transition duration-150 ease-in-out"
                     >
                         <i class="fas fa-user-plus mr-2"></i>
                         Daftar
                     </button>
+                </div>
+
+                <!-- Verification Information -->
+                <div id="verification-info" class="hidden bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded text-sm text-yellow-700 mt-4">
+                    <p><i class="fas fa-exclamation-circle mr-1"></i> <strong>Catatan:</strong> Jika Anda mendaftar sebagai Ustad, akun Anda akan menunggu verifikasi oleh admin sebelum dapat digunakan secara penuh.</p>
                 </div>
 
                 <!-- Login Link -->
@@ -195,13 +200,23 @@ function toggleSantriFields() {
     const role = document.getElementById('role').value;
     const nisnField = document.getElementById('nisn-field');
     const kelasField = document.getElementById('kelas-field');
-    
+    const verificationInfo = document.getElementById('verification-info');
+
     if (role === 'santri') {
         nisnField.classList.remove('hidden');
         kelasField.classList.remove('hidden');
+        verificationInfo.classList.add('hidden');
+    } else if (role === 'ustad') {
+        nisnField.classList.add('hidden');
+        kelasField.classList.add('hidden');
+        verificationInfo.classList.remove('hidden');
+        // Clear values when hidden
+        document.getElementById('nisn').value = '';
+        document.getElementById('kelas').value = '';
     } else {
         nisnField.classList.add('hidden');
         kelasField.classList.add('hidden');
+        verificationInfo.classList.add('hidden');
         // Clear values when hidden
         document.getElementById('nisn').value = '';
         document.getElementById('kelas').value = '';

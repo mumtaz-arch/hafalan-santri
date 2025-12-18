@@ -20,6 +20,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Update semua data admin menjadi ustad sementara sebelum mengganti enum
+        DB::statement("UPDATE users SET role = 'ustad' WHERE role = 'admin'");
+
         // Revert to original enum without 'admin'
         DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('santri', 'ustad')");
     }

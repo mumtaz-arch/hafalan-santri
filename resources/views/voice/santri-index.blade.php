@@ -183,15 +183,16 @@
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Submit</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nilai</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Direview Oleh</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($submissions as $submission)
-                                <tr class="hover:bg-gray-50" 
-                                    data-submission-id="{{ $submission->id }}" 
-                                    data-status="{{ $submission->status }}" 
-                                    data-feedback="{{ addslashes($submission->feedback ?? '') }}" 
+                                <tr class="hover:bg-gray-50"
+                                    data-submission-id="{{ $submission->id }}"
+                                    data-status="{{ $submission->status }}"
+                                    data-feedback="{{ addslashes($submission->feedback ?? '') }}"
                                     data-score="{{ $submission->score ?? '' }}">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">{{ $submission->hafalan->nama_surah }}</div>
@@ -212,9 +213,27 @@
                                             -
                                         @endif
                                     </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        @if($submission->status !== 'pending' && $submission->reviewer)
+                                            <div class="flex items-center">
+                                                <i class="fas fa-user-check text-green-500 mr-1"></i>
+                                                {{ $submission->reviewer->name }}
+                                                @if($submission->reviewed_at)
+                                                    <div class="ml-2 text-xs text-gray-500">({{ $submission->formatted_reviewed_at }})</div>
+                                                @endif
+                                            </div>
+                                        @elseif($submission->status !== 'pending' && !$submission->reviewer)
+                                            <div class="flex items-center">
+                                                <i class="fas fa-user-slash text-gray-400 mr-1"></i>
+                                                <span>Tidak diketahui</span>
+                                            </div>
+                                        @else
+                                            <span class="text-gray-400">-</span>
+                                        @endif
+                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                                         <!-- Play Audio -->
-                                        <button 
+                                        <button
                                             onclick="playAudio('{{ $submission->voice_url }}')"
                                             class="text-blue-600 hover:text-blue-900 inline-flex items-center"
                                             title="Putar Audio"
@@ -222,9 +241,9 @@
                                             <i class="fas fa-play mr-1"></i>
                                             Putar
                                         </button>
-                                        
+
                                         <!-- View Details -->
-                                        <button 
+                                        <button
                                             onclick="showDetail('{{ $submission->id }}')"
                                             class="text-islamic-green hover:text-green-700 inline-flex items-center"
                                             title="Lihat Detail"
@@ -359,4 +378,91 @@
 
 @section('scripts')
     <script src='{{ asset('js/voice-recorder.js') }}'></script>
+    <script>
+        // Function to load and show submission details
+        function showDetail(submissionId) {
+            // Fetch submission data as JSON
+            fetch(`/voice-submissions/${submissionId}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Create the detail content with reviewer information
+                let content = `
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500">Surah</h4>
+                            <p class="mt-1 text-gray-900">${data.hafalan.nama_surah}</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500">Tanggal Submit</h4>
+                            <p class="mt-1 text-gray-900">${data.formatted_created_at}</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500">Status</h4>
+                            <p class="mt-1 text-gray-900">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${data.status_badge.color}">
+                                    ${data.status_badge.text}
+                                </span>
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500">Nilai</h4>
+                            <p class="mt-1 text-gray-900">${data.score ? data.score + '/100' : '-'}</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500">Direview Oleh</h4>
+                            <p class="mt-1 text-gray-900">
+                                ${data.status !== 'pending' && data.reviewer ?
+                                    `<span class="flex items-center"><i class="fas fa-user-check text-green-500 mr-1"></i> ${data.reviewer.name} ${data.formatted_reviewed_at ? '(' + data.formatted_reviewed_at + ')' : ''}</span>` :
+                                    '<span class="text-gray-400">Belum direview</span>'
+                                }
+                            </p>
+                        </div>
+
+                        ${data.feedback ? `
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500">Feedback</h4>
+                            <p class="mt-1 text-gray-900 bg-gray-50 p-3 rounded">${data.feedback}</p>
+                        </div>
+                        ` : ''}
+
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-500">Audio</h4>
+                            <div class="mt-1">
+                                <audio controls class="w-full">
+                                    <source src="${data.voice_url}" type="audio/mpeg">
+                                    Browser Anda tidak mendukung audio element.
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('detailContent').innerHTML = content;
+                document.getElementById('detailModal').classList.remove('hidden');
+            })
+            .catch(error => {
+                console.error('Error loading submission details:', error);
+                document.getElementById('detailContent').innerHTML = '<div class="text-center text-red-500">Gagal memuat detail submission</div>';
+                document.getElementById('detailModal').classList.remove('hidden');
+            });
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+    </script>
 @endsection

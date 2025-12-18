@@ -101,16 +101,32 @@
                 @if($recentSubmissions->count() > 0)
                     <div class="space-y-4">
                         @foreach($recentSubmissions as $submission)
-                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                                <div class="flex-1">
-                                    <h4 class="font-medium text-gray-900">{{ $submission->hafalan->nama_surah }}</h4>
-                                    <p class="text-sm text-gray-600">{{ $submission->formatted_created_at }}</p>
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-900">{{ $submission->hafalan->nama_surah }}</h4>
+                                        <p class="text-sm text-gray-600">{{ $submission->formatted_created_at }}</p>
+                                    </div>
+                                    <div class="ml-4">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $submission->status_badge['color'] }}">
+                                            {{ $submission->status_badge['text'] }}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="ml-4">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $submission->status_badge['color'] }}">
-                                        {{ $submission->status_badge['text'] }}
-                                    </span>
-                                </div>
+                                @if($submission->status !== 'pending' && $submission->reviewer)
+                                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                                        <i class="fas fa-user-check mr-2"></i>
+                                        <span>Direview oleh: {{ $submission->reviewer->name }}</span>
+                                        @if($submission->reviewed_at)
+                                            <span class="ml-3">• {{ $submission->formatted_reviewed_at }}</span>
+                                        @endif
+                                    </div>
+                                @elseif($submission->status !== 'pending' && !$submission->reviewer)
+                                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                                        <i class="fas fa-user-slash mr-2"></i>
+                                        <span>Reviewer: Tidak diketahui</span>
+                                    </div>
+                                @endif
                             </div>
                         @endforeach
                     </div>
@@ -206,17 +222,17 @@
     </div> -->
 
     <!-- Islamic Quote -->
-    <div class="mt-8 bg-gradient-to-r from-islamic-green to-green-600 rounded-lg shadow p-6 text-white">
-        <div class="text-center">
+    <div class="mt-8 bg-gradient-to-r from-islamic-green to-green-600 rounded-lg shadow p-6">
+        <div class="text-center text-white">
             <i class="fas fa-quote-left text-2xl mb-4 opacity-75"></i>
-            <p class="text-lg mb-2 font-medium">
+            <p class="text-lg mb-2 font-medium text-islamic-green">
                 "وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا"
             </p>
-            <p class="text-sm opacity-90">
+            <p class="text-sm opacity-90 text-islamic-green">
                 "Dan bacalah Al-Qur'an itu dengan perlahan-lahan." (QS. Al-Muzzammil: 4)
             </p>
             <div class="mt-4 pt-4 border-t border-green-500">
-                <p class="text-sm">
+                <p class="text-sm text-islamic-green">
                     <i class="fas fa-calendar-alt mr-2"></i>
                     {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
                 </p>

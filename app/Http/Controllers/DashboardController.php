@@ -15,11 +15,17 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         $seoData = SeoController::getDashboardSeoData($user);
-        
+
         if ($user->role === 'santri') {
             return $this->santriDashboard($seoData);
+        } elseif ($user->role === 'admin') {
+            return $this->adminDashboard($seoData);
         } else {
-            // Both ustad and admin get the ustad dashboard
+            // For ustad, check verification status
+            if (!$user->isVerified()) {
+                // Show pending verification dashboard with notification
+                return $this->pendingUstadDashboard($seoData);
+            }
             return $this->ustadDashboard($seoData);
         }
     }
@@ -41,7 +47,7 @@ class DashboardController extends Controller
 
         // Submission terbaru
         $recentSubmissions = VoiceSubmission::where('user_id', $user->id)
-            ->with('hafalan')
+            ->with(['hafalan', 'reviewer'])
             ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get();
@@ -106,6 +112,55 @@ class DashboardController extends Controller
             'pendingSubmissions',
             'recentActivities',
             'monthlyStats',
+            'seoData'
+        ));
+    }
+
+    private function pendingUstadDashboard($seoData)
+    {
+        $user = Auth::user();
+
+        // Show a message that account is pending verification
+        // Display limited information
+        return view('dashboard.pending-ustad', compact('seoData', 'user'));
+    }
+
+    private function adminDashboard($seoData)
+    {
+        $user = Auth::user();
+
+        // Statistics for admin
+        $totalUsers = User::count();
+        $totalSantri = User::where('role', 'santri')->count();
+        $totalUstad = User::where('role', 'ustad')->count();
+        $totalAdmin = User::where('role', 'admin')->count();
+
+        $pendingVerifications = User::where('role', 'ustad')
+            ->where('verification_status', 'pending')
+            ->count();
+
+        // Users that need verification
+        $unverifiedUsers = User::where('role', 'ustad')
+            ->where('verification_status', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Recent activities - users that have verification status changes
+        $recentActivities = User::with('verifier')
+            ->where('role', 'ustad')
+            ->whereNotNull('verified_at')
+            ->orderBy('verified_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('dashboard.admin', compact(
+            'totalUsers',
+            'totalSantri',
+            'totalUstad',
+            'totalAdmin',
+            'pendingVerifications',
+            'unverifiedUsers',
+            'recentActivities',
             'seoData'
         ));
     }

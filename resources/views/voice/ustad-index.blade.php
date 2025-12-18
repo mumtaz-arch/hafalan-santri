@@ -128,18 +128,18 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                                         <!-- Play Audio -->
-                                        <button 
-                                            onclick="playAudio('{{ $submission->voice_url }}', '{{ $submission->user->name }}', '{{ $submission->hafalan->nama_surah }}')"
+                                        <button
+                                            onclick="playAudio({{ json_encode($submission->voice_url) }}, {{ json_encode($submission->user->name) }}, {{ json_encode($submission->hafalan->nama_surah) }})"
                                             class="text-blue-600 hover:text-blue-900 inline-flex items-center"
                                             title="Putar Audio"
                                         >
                                             <i class="fas fa-play mr-1"></i>
                                         </button>
-                                        
+
                                         <!-- Review (only for pending) -->
                                         @if($submission->status === 'pending')
-                                            <button 
-                                                onclick="openReviewModal({{ $submission->id }}, '{{ $submission->user->name }}', '{{ $submission->hafalan->nama_surah }}')"
+                                            <button
+                                                onclick="openReviewModal({{ $submission->id }}, {{ json_encode($submission->user->name) }}, {{ json_encode($submission->hafalan->nama_surah) }})"
                                                 class="text-islamic-green hover:text-green-700 inline-flex items-center"
                                                 title="Review"
                                             >
@@ -147,7 +147,7 @@
                                             </button>
                                         @else
                                             <!-- View Review -->
-                                            <button 
+                                            <button
                                                 onclick="viewReview({{ $submission->id }})"
                                                 class="text-gray-600 hover:text-gray-900 inline-flex items-center"
                                                 title="Lihat Review"
@@ -304,95 +304,236 @@
 
 @section('scripts')
 <script>
-// Audio player functions
-function playAudio(audioUrl, santriName, surahName) {
-    const audioPlayer = document.getElementById('audioPlayer');
-    const audioSource = audioPlayer.querySelector('source');
-    const audioInfo = document.getElementById('audioInfo');
-    
-    audioSource.src = audioUrl;
-    audioPlayer.load();
-    audioInfo.textContent = `Hafalan ${surahName} oleh ${santriName}`;
-    
-    document.getElementById('audioModal').classList.remove('hidden');
-}
+document.addEventListener('DOMContentLoaded', function() {
+    // Audio player functions
+    window.playAudio = function(audioUrl, santriName, surahName) {
+        try {
+            const audioPlayer = document.getElementById('audioPlayer');
+            const audioSource = audioPlayer.querySelector('source');
+            const audioInfo = document.getElementById('audioInfo');
 
-function closeAudioModal() {
-    const audioPlayer = document.getElementById('audioPlayer');
-    audioPlayer.pause();
-    audioPlayer.currentTime = 0;
-    document.getElementById('audioModal').classList.add('hidden');
-}
+            if (!audioPlayer || !audioSource || !audioInfo) {
+                console.error('Audio elements not found');
+                return;
+            }
 
-// Review modal functions
-function openReviewModal(submissionId, santriName, surahName) {
-    const reviewInfo = document.getElementById('reviewInfo');
+            audioSource.src = audioUrl;
+            audioPlayer.load();
+            audioInfo.textContent = `Hafalan ${surahName} oleh ${santriName}`;
+
+            document.getElementById('audioModal').classList.remove('hidden');
+        } catch (error) {
+            console.error('Error in playAudio function:', error);
+        }
+    }
+
+    window.closeAudioModal = function() {
+        try {
+            const audioPlayer = document.getElementById('audioPlayer');
+            if (audioPlayer) {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            }
+            document.getElementById('audioModal').classList.add('hidden');
+        } catch (error) {
+            console.error('Error in closeAudioModal function:', error);
+        }
+    }
+
+    // Review modal functions
+    window.openReviewModal = function(submissionId, santriName, surahName) {
+        try {
+            const reviewInfo = document.getElementById('reviewInfo');
+            const reviewForm = document.getElementById('reviewForm');
+
+            if (!reviewInfo || !reviewForm) {
+                console.error('Review modal elements not found');
+                return;
+            }
+
+            reviewInfo.textContent = `Review hafalan ${surahName} oleh ${santriName}`;
+            reviewForm.action = `/voice-submission/${submissionId}/review`;
+
+            // Reset form
+            reviewForm.reset();
+
+            document.getElementById('reviewModal').classList.remove('hidden');
+        } catch (error) {
+            console.error('Error in openReviewModal function:', error);
+        }
+    }
+
+    window.closeReviewModal = function() {
+        try {
+            document.getElementById('reviewModal').classList.add('hidden');
+        } catch (error) {
+            console.error('Error in closeReviewModal function:', error);
+        }
+    }
+
+    window.viewReview = function(submissionId) {
+        try {
+            // Redirect to the submission detail page
+            window.location.href = '/voice-submission/' + submissionId;
+        } catch (error) {
+            console.error('Error in viewReview function:', error);
+        }
+    }
+
+    // Handle review form submission with AJAX
     const reviewForm = document.getElementById('reviewForm');
-    
-    reviewInfo.textContent = `Review hafalan ${surahName} oleh ${santriName}`;
-    reviewForm.action = `/voice-submission/${submissionId}/review`;
-    
-    // Reset form
-    reviewForm.reset();
-    
-    document.getElementById('reviewModal').classList.remove('hidden');
-}
 
-function closeReviewModal() {
-    document.getElementById('reviewModal').classList.add('hidden');
-}
+    if (reviewForm) {
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
 
-function viewReview(submissionId) {
-    // Redirect to the submission detail page
-    window.location.href = '/voice-submission/' + submissionId;
-}
+            // Add the _method hidden field to make it a PATCH request
+            const methodField = document.createElement('input');
+            methodField.type = 'hidden';
+            methodField.name = '_method';
+            methodField.value = 'PATCH';
+            reviewForm.appendChild(methodField);
 
-// Filter functions
-function applyFilters() {
-    const statusFilter = document.getElementById('statusFilter').value.toLowerCase();
-    const santriFilter = document.getElementById('santriFilter').value.toLowerCase();
-    const rows = document.querySelectorAll('.submission-row');
-    
-    rows.forEach(row => {
-        const status = row.dataset.status;
-        const santri = row.dataset.santri;
-        
-        let showRow = true;
-        
-        if (statusFilter && status !== statusFilter) {
-            showRow = false;
-        }
-        
-        if (santriFilter && !santri.includes(santriFilter)) {
-            showRow = false;
-        }
-        
-        row.style.display = showRow ? '' : 'none';
-    });
-}
+            const formData = new FormData(reviewForm);
+            const actionUrl = reviewForm.action;
 
-function resetFilters() {
-    document.getElementById('statusFilter').value = '';
-    document.getElementById('santriFilter').value = '';
-    applyFilters();
-}
+            // Remove the temporary method field after creating FormData
+            reviewForm.removeChild(methodField);
 
-// Close modals when clicking outside
-window.onclick = function(event) {
-    const audioModal = document.getElementById('audioModal');
-    const reviewModal = document.getElementById('reviewModal');
-    
-    if (event.target === audioModal) {
-        closeAudioModal();
+            // Show loading state
+            const submitButton = reviewForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Memproses...';
+            submitButton.disabled = true;
+
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    showMessage(data.message, 'success');
+
+                    // Close modal and refresh the page
+                    closeReviewModal();
+                    location.reload();
+                } else {
+                    // Show error message
+                    showMessage(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage('Terjadi kesalahan saat menyimpan review. Silakan coba lagi.', 'error');
+            })
+            .finally(() => {
+                // Restore button state
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            });
+        });
     }
-    if (event.target === reviewModal) {
-        closeReviewModal();
-    }
-}
 
-// Auto-refresh pending count every 30 seconds
-setInterval(function() {
-    // You can implement auto-refresh functionality here if needed
-}, 30000);
+    // Other functions that should be available globally
+    window.showMessage = function(message, type) {
+        try {
+            // Remove existing messages
+            const existingAlert = document.querySelector('.alert-auto-hide');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+
+            // Create message element
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `bg-${type === 'error' ? 'red' : 'green'}-100 border border-${type === 'error' ? 'red' : 'green'}-400 text-${type === 'error' ? 'red' : 'green'}-700 px-4 py-3 rounded mb-6 alert-auto-hide`;
+            alertDiv.innerHTML = `
+                <div class="flex">
+                    <i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'} mr-2 mt-0.5"></i>
+                    <p class="text-sm">${message}</p>
+                </div>
+            `;
+
+            // Insert message at the top of the content
+            const contentDiv = document.querySelector('.max-w-7xl');
+            if (contentDiv) {
+                contentDiv.insertBefore(alertDiv, contentDiv.firstChild);
+            }
+
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        } catch (error) {
+            console.error('Error in showMessage function:', error);
+        }
+    }
+
+    // Filter functions
+    window.applyFilters = function() {
+        try {
+            const statusFilter = document.getElementById('statusFilter').value.toLowerCase();
+            const santriFilter = document.getElementById('santriFilter').value.toLowerCase();
+            const rows = document.querySelectorAll('.submission-row');
+
+            rows.forEach(row => {
+                const status = row.dataset.status;
+                const santri = row.dataset.santri;
+
+                let showRow = true;
+
+                if (statusFilter && status !== statusFilter) {
+                    showRow = false;
+                }
+
+                if (santriFilter && !santri.includes(santriFilter)) {
+                    showRow = false;
+                }
+
+                row.style.display = showRow ? '' : 'none';
+            });
+        } catch (error) {
+            console.error('Error in applyFilters function:', error);
+        }
+    }
+
+    window.resetFilters = function() {
+        try {
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('santriFilter').value = '';
+            applyFilters();
+        } catch (error) {
+            console.error('Error in resetFilters function:', error);
+        }
+    }
+
+    // Close modals when clicking outside
+    window.onclick = function(event) {
+        try {
+            const audioModal = document.getElementById('audioModal');
+            const reviewModal = document.getElementById('reviewModal');
+
+            if (audioModal && event.target === audioModal) {
+                closeAudioModal();
+            }
+            if (reviewModal && event.target === reviewModal) {
+                closeReviewModal();
+            }
+        } catch (error) {
+            console.error('Error in window click handler:', error);
+        }
+    }
+
+    // Auto-refresh pending count every 30 seconds
+    setInterval(function() {
+        // You can implement auto-refresh functionality here if needed
+    }, 30000);
+});
 </script>
 @endsection
