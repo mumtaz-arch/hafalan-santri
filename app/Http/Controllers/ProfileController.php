@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use App\Traits\PasswordValidationRules;
 
 class ProfileController extends Controller
 {
+    use PasswordValidationRules;
+
     /**
      * Show the user profile page
      */
@@ -28,7 +31,18 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'nisn' => 'nullable|string|max:20|unique:users,nisn,' . $user->id,
+            'kelas' => 'nullable|string|max:50',
             'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'name.required' => 'Nama lengkap wajib diisi',
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'Format email tidak valid',
+            'email.unique' => 'Email sudah terdaftar',
+            'nisn.unique' => 'NISN sudah terdaftar',
+            'profile_photo.image' => 'File harus berupa gambar',
+            'profile_photo.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'profile_photo.max' => 'Ukuran gambar maksimal 2MB',
         ]);
 
         // Handle profile photo upload
@@ -46,6 +60,8 @@ class ProfileController extends Controller
         // Update other fields
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        $user->nisn = $request->input('nisn');
+        $user->kelas = $request->input('kelas');
         $user->save();
 
         return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui!');
@@ -58,10 +74,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $request->validate([
-            'current_password' => 'required',
-            'new_password' => 'required|min:8|confirmed',
-        ]);
+        $request->validate($this->changePasswordValidationRules(), $this->passwordValidationMessages());
 
         // Check if the current password is correct
         if (!Hash::check($request->current_password, $user->password)) {
@@ -72,7 +85,7 @@ class ProfileController extends Controller
         $user->password = Hash::make($request->new_password);
         $user->save();
 
-        return redirect()->route('profile.show')->with('success', 'Password berhasil diubah!');
+        return redirect()->route('profile.show')->with('success', 'Password berhasil diperbarui');
     }
 
     /**

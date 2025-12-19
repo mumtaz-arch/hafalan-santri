@@ -11,9 +11,12 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use App\Mail\ResetPasswordMail;
 use App\Models\User;
+use App\Traits\PasswordValidationRules;
 
 class AuthController extends Controller
 {
+    use PasswordValidationRules;
+
     public function showLogin()
     {
         if (Auth::check()) {
@@ -56,24 +59,21 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate([
+        $request->validate(array_merge([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
             'role' => 'required|in:santri,ustad',
-            'nisn' => 'nullable|string|max:20',
+            'nisn' => 'nullable|string|max:20|unique:users',
             'kelas' => 'nullable|string|max:50',
-        ], [
+        ], $this->passwordValidationRules()), array_merge([
             'name.required' => 'Nama lengkap wajib diisi',
             'email.required' => 'Email wajib diisi',
             'email.email' => 'Format email tidak valid',
             'email.unique' => 'Email sudah terdaftar',
-            'password.required' => 'Password wajib diisi',
-            'password.min' => 'Password minimal 6 karakter',
-            'password.confirmed' => 'Konfirmasi password tidak cocok',
             'role.required' => 'Role wajib dipilih',
             'role.in' => 'Role harus santri atau ustad',
-        ]);
+            'nisn.unique' => 'NISN sudah terdaftar',
+        ], $this->passwordValidationMessages()));
 
         // Determine verification status based on role
         $verificationStatus = 'verified'; // Default is verified
@@ -154,18 +154,14 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request)
     {
-        $request->validate([
+        $request->validate(array_merge([
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:6|confirmed',
-        ], [
+        ], $this->passwordValidationRules()), array_merge([
             'email.required' => 'Email wajib diisi',
             'email.email' => 'Format email tidak valid',
-            'password.required' => 'Password wajib diisi',
-            'password.min' => 'Password minimal 6 karakter',
-            'password.confirmed' => 'Konfirmasi password tidak cocok',
             'token.required' => 'Token tidak valid'
-        ]);
+        ], $this->passwordValidationMessages()));
 
         // Check if the token exists and is not expired (valid for 60 minutes)
         $resetData = DB::table('password_reset_tokens')

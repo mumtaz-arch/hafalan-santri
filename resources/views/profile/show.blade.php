@@ -199,24 +199,36 @@
                     <!-- NISN (if santri) -->
                     @if($user->role === 'santri')
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="nisn" class="block text-sm font-medium text-gray-700 mb-2">
                                 NISN
                             </label>
-                            <div class="px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg">
-                                <p class="text-gray-900">{{ $user->nisn ?? '-' }}</p>
-                            </div>
+                            <input type="text"
+                                   name="nisn"
+                                   id="nisn"
+                                   value="{{ old('nisn', $user->nisn) }}"
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-islamic-green focus:ring-2 focus:ring-green-100"
+                                   placeholder="Masukkan NISN">
+                            @error('nisn')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
                     @endif
 
                     <!-- Kelas (if santri) -->
-                    @if($user->role === 'santri' && $user->kelas)
+                    @if($user->role === 'santri')
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="kelas" class="block text-sm font-medium text-gray-700 mb-2">
                                 Kelas
                             </label>
-                            <div class="px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg">
-                                <p class="text-gray-900">{{ $user->kelas }}</p>
-                            </div>
+                            <input type="text"
+                                   name="kelas"
+                                   id="kelas"
+                                   value="{{ old('kelas', $user->kelas) }}"
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-islamic-green focus:ring-2 focus:ring-green-100"
+                                   placeholder="Masukkan kelas">
+                            @error('kelas')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
                     @endif
 
@@ -285,7 +297,7 @@
                                name="new_password"
                                id="new_password"
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-islamic-green focus:ring-2 focus:ring-green-100"
-                               placeholder="Masukkan password baru (minimal 8 karakter)"
+                               placeholder="Masukkan password baru (minimal 6 karakter)"
                                required>
                         @error('new_password')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -308,7 +320,7 @@
                     <!-- Password Strength Indicator -->
                     <div class="pt-2">
                         <small class="text-gray-600">
-                            Password harus memiliki setidaknya 8 karakter dan mencakup huruf besar, huruf kecil, angka, dan simbol.
+                            Password minimal 6 karakter.
                         </small>
                     </div>
                 </div>
