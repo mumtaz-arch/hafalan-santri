@@ -30,24 +30,6 @@
         </div>
     @endif
 
-    @if (session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 alert-auto-hide">
-            <div class="flex">
-                <i class="fas fa-check-circle mr-2 mt-0.5"></i>
-                <p class="text-sm">{{ session('success') }}</p>
-            </div>
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 alert-auto-hide">
-            <div class="flex">
-                <i class="fas fa-times-circle mr-2 mt-0.5"></i>
-                <p class="text-sm">{{ session('error') }}</p>
-            </div>
-        </div>
-    @endif
-
     <!-- Submit Form -->
     <div class="bg-white rounded-lg shadow mb-8">
         <div class="p-6 border-b border-gray-200">
@@ -394,7 +376,7 @@
         // Function to load and show submission details
         function showDetail(submissionId) {
             // Fetch submission data as JSON
-            fetch(`/voice-submissions/${submissionId}`, {
+            fetch(`/voice-submission/${submissionId}`, {
                 headers: {
                     'Accept': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest'
@@ -437,16 +419,34 @@
                         <div>
                             <h4 class="text-sm font-medium text-gray-500">Direview Oleh</h4>
                             <p class="mt-1 text-gray-900">
-                                ${data.status !== 'pending' && data.reviewer ?
-                                    `<span class="flex items-center">
-                                        \${data.reviewer.profile_photo ?
-                                            '<img src="' + window.location.origin + '/storage/' + data.reviewer.profile_photo + '" alt="' + (data.reviewer.prefixed_name || data.reviewer.name) + '" class="h-6 w-6 rounded-full object-cover mr-2 border-gray-300">' :
-                                            '<div class="w-6 h-6 rounded-full bg-islamic-green text-white font-bold text-xs flex items-center justify-center mr-2">' + (data.reviewer.initials || '?') + '</div>'
+                                ${(function() {
+                                    if (data.status !== 'pending' && data.reviewer) {
+                                        let reviewerInfo = '<span class="flex items-center">';
+
+                                        // Safety check for profile photo
+                                        if (data.reviewer && data.reviewer.profile_photo) {
+                                            reviewerInfo += '<img src="' + window.location.origin + '/storage/' + data.reviewer.profile_photo + '" alt="' + (data.reviewer.prefixed_name || data.reviewer.name || 'Reviewer') + '" class="h-6 w-6 rounded-full object-cover mr-2 border-gray-300">';
+                                        } else {
+                                            // Use initials if available, fallback to '?' if not
+                                            const initials = (data.reviewer && data.reviewer.initials) ? data.reviewer.initials : '?';
+                                            reviewerInfo += '<div class="w-6 h-6 rounded-full bg-islamic-green text-white font-bold text-xs flex items-center justify-center mr-2">' + initials + '</div>';
                                         }
-                                        \${data.reviewer.prefixed_name || data.reviewer.name} \${data.formatted_reviewed_at ? '(' + data.formatted_reviewed_at + ')' : ''}
-                                    </span>` :
-                                    '<span class="text-gray-400">Belum direview</span>'
-                                }
+
+                                        // Display prefixed name with fallback
+                                        const reviewerName = (data.reviewer && data.reviewer.prefixed_name) || (data.reviewer && data.reviewer.name) || 'Reviewer';
+                                        reviewerInfo += reviewerName;
+
+                                        // Add review date if available
+                                        if (data.formatted_reviewed_at) {
+                                            reviewerInfo += ' (' + data.formatted_reviewed_at + ')';
+                                        }
+
+                                        reviewerInfo += '</span>';
+                                        return reviewerInfo;
+                                    } else {
+                                        return '<span class="text-gray-400">Belum direview</span>';
+                                    }
+                                })()}
                             </p>
                         </div>
 
