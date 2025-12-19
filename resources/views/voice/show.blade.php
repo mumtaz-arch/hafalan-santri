@@ -146,9 +146,7 @@
                                          alt="{{ $submission->reviewer->name }}"
                                          class="h-10 w-10 rounded-full object-cover mr-3 border-gray-300">
                                 @else
-                                    <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
-                                        <span class="text-white font-medium text-sm">{{ substr($submission->reviewer->name, 0, 2) }}</span>
-                                    </div>
+                                    <x-user-avatar :user="$submission->reviewer" size="md" class="mr-3" />
                                 @endif
                                 <div>
                                     <p class="font-medium text-gray-900">{{ $submission->reviewer->prefixed_name }}</p>

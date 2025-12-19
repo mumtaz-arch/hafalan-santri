@@ -79,7 +79,7 @@
                                  class="h-32 w-32 rounded-full object-cover border border-islamic-green">
                         @else
                             <div class="h-32 w-32 rounded-full bg-gray-200 flex items-center justify-center border-4 border-gray-300">
-                                <i class="fas fa-user text-gray-400 text-4xl"></i>
+                                <x-user-avatar :user="$user" size="xl" />
                             </div>
                         @endif
                     </div>

@@ -92,7 +92,7 @@
                                                          alt="{{ $submission->user->name }}"
                                                          class="h-10 w-10 rounded-full object-cover border border-islamic-green">
                                                 @else
-                                                    <span class="text-white font-medium">{{ substr($submission->user->name, 0, 2) }}</span>
+                                                    <x-user-avatar :user="$submission->user" size="md" />
                                                 @endif
                                             </div>
                                             <div>

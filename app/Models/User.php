@@ -98,7 +98,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = ['prefixed_name'];
+    protected $appends = ['prefixed_name', 'initials'];
 
     /**
      * Get the user's name with prefix based on role
@@ -110,5 +110,33 @@ class User extends Authenticatable
         }
 
         return $this->name;
+    }
+
+    /**
+     * Get the user's initials from name
+     */
+    public function getInitialsAttribute()
+    {
+        $name = $this->name;
+        if (!$name) return '?';
+
+        $nameParts = explode(' ', trim($name));
+        $initials = '';
+
+        // Ambil huruf pertama dari maksimal 2 kata
+        $count = 0;
+        foreach ($nameParts as $part) {
+            if ($count >= 2) break;
+
+            $initials .= strtoupper(substr($part, 0, 1));
+            $count++;
+        }
+
+        // Jika hanya 1 kata, hanya ambil 1 huruf
+        if (count($nameParts) === 1) {
+            $initials = strtoupper(substr($nameParts[0], 0, 1));
+        }
+
+        return $initials;
     }
 }

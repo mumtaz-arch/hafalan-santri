@@ -107,9 +107,7 @@
                                                          alt="{{ $submission->user->name }}"
                                                          class="h-10 w-10 rounded-full object-cover border border-islamic-green">
                                                 @else
-                                                    <div class="h-10 w-10 rounded-full bg-islamic-green flex items-center justify-center">
-                                                        <span class="text-white font-medium">{{ substr($submission->user->name, 0, 2) }}</span>
-                                                    </div>
+                                                    <x-user-avatar :user="$submission->user" size="md" />
                                                 @endif
                                             </div>
                                             <div class="ml-4">
@@ -166,9 +164,7 @@
                                              alt="{{ $activity->user->name }}"
                                              class="h-8 w-8 rounded-full object-cover border border-gray-300">
                                     @else
-                                        <div class="h-8 w-8 rounded-full bg-{{ $activity->status === 'approved' ? 'green' : ($activity->status === 'rejected' ? 'red' : 'yellow') }}-100 flex items-center justify-center">
-                                            <i class="fas fa-{{ $activity->status === 'approved' ? 'check' : ($activity->status === 'rejected' ? 'times' : 'clock') }} text-{{ $activity->status === 'approved' ? 'green' : ($activity->status === 'rejected' ? 'red' : 'yellow') }}-600 text-xs"></i>
-                                        </div>
+                                        <x-user-avatar :user="$activity->user" size="sm" />
                                     @endif
                                 </div>
                                 <div class="flex-1 min-w-0">

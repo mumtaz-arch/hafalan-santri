@@ -98,9 +98,7 @@
                                                          alt="{{ $santri->name }}"
                                                          class="h-12 w-12 rounded-full object-cover border border-islamic-green">
                                                 @else
-                                                    <div class="h-12 w-12 rounded-full bg-islamic-green flex items-center justify-center">
-                                                        <span class="text-white font-medium">{{ substr($santri->name, 0, 2) }}</span>
-                                                    </div>
+                                                    <x-user-avatar :user="$santri" size="lg" />
                                                 @endif
                                             </div>
                                             <div class="ml-4">

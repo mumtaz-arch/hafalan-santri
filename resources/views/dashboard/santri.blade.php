@@ -121,7 +121,7 @@
                                                      alt="{{ $submission->reviewer->name }}"
                                                      class="h-5 w-5 rounded-full object-cover mr-2">
                                             @else
-                                                <i class="fas fa-user-check mr-2"></i>
+                                                <x-user-avatar :user="$submission->reviewer" size="xxs" class="mr-2" />
                                             @endif
                                             <span>Direview oleh: {{ $submission->reviewer->prefixed_name }}</span>
                                         </div>
