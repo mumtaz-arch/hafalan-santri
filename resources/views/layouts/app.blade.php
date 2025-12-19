@@ -81,6 +81,9 @@
                                 <a href="{{ route('admin.users.index') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('admin.*') ? 'bg-green-700' : '' }}">
                                     <i class="fas fa-users mr-1"></i> Manajemen Pengguna
                                 </a>
+                                <a href="{{ route('hafalan.index') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('hafalan.*') ? 'bg-green-700' : '' }}">
+                                    <i class="fas fa-book mr-1"></i> Data Hafalan
+                                </a>
                             @else
                                 <a href="{{ route('voice.index') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('voice.*') ? 'bg-green-700' : '' }}">
                                     <i class="fas fa-microphone mr-1"></i>
@@ -138,6 +141,9 @@
                 @if(auth()->user()->isAdmin())
                     <a href="{{ route('admin.users.index') }}" class="text-white block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('admin.*') ? 'bg-green-700' : '' }}">
                         <i class="fas fa-users mr-2"></i> Manajemen Pengguna
+                    </a>
+                    <a href="{{ route('hafalan.index') }}" class="text-white block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('hafalan.*') ? 'bg-green-700' : '' }}">
+                        <i class="fas fa-book mr-2"></i> Data Hafalan
                     </a>
                 @else
                     <a href="{{ route('voice.index') }}" class="text-white block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('voice.*') ? 'bg-green-700' : '' }}">

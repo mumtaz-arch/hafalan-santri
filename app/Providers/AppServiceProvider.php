@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
     {
         // Load helper files
         $this->loadHelpers();
+
+        // Set pagination view default
+        \Illuminate\Pagination\Paginator::defaultView('vendor.pagination.tailwind');
+        \Illuminate\Pagination\Paginator::defaultSimpleView('vendor.pagination.simple-bootstrap');
     }
 
     /**

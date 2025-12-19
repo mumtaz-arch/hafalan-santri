@@ -55,14 +55,19 @@
                             MAKN ENDE
                         </h1>
                     </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <!-- Placeholder for consistency - empty on guest navbar -->
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="hidden md:block">
+
+                <div class="hidden md:flex md:items-center">
                     <div class="ml-4 flex items-center md:ml-6 space-x-4">
                         <a href="{{ route('login') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">
                             <i class="fas fa-sign-in-alt mr-1"></i> Login
                         </a>
-                        <a href="{{ route('register') }}" class="bg-white text-islamic-green hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">
+                        <a href="{{ route('register') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium">
                             <i class="fas fa-user-plus mr-1"></i> Register
                         </a>
                     </div>

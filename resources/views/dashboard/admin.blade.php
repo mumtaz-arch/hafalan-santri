@@ -151,10 +151,8 @@
         </div>
     </div>
 
-    <!-- Content Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Aktivitas Terbaru -->
-        <div class="bg-white rounded-lg shadow">
+    <!-- Aktivitas Terbaru -->
+    <div class="bg-white rounded-lg shadow">
             <div class="p-6 border-b border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-900">
                     <i class="fas fa-history text-blue-500 mr-2"></i>
@@ -194,50 +192,6 @@
                 @endif
             </div>
         </div>
-
-        <!-- Quick Actions -->
-        <div class="bg-white rounded-lg shadow">
-            <div class="p-6 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    <i class="fas fa-bolt text-islamic-green mr-2"></i>
-                    Aksi Cepat
-                </h3>
-            </div>
-            <div class="p-6">
-                <div class="space-y-3">
-                    <a href="{{ route('admin.users.index') }}" class="flex items-center p-4 bg-islamic-light rounded-lg hover:bg-green-100 transition duration-150">
-                        <div class="p-2 bg-islamic-green rounded-lg mr-4">
-                            <i class="fas fa-users text-white"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-900">Manajemen Pengguna</p>
-                            <p class="text-sm text-gray-600">Lihat dan kelola semua pengguna</p>
-                        </div>
-                    </a>
-
-                    <a href="{{ route('hafalan.index') }}" class="flex items-center p-4 bg-islamic-light rounded-lg hover:bg-green-100 transition duration-150">
-                        <div class="p-2 bg-blue-500 rounded-lg mr-4">
-                            <i class="fas fa-book text-white"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-900">Data Hafalan</p>
-                            <p class="text-sm text-gray-600">Lihat dan kelola data hafalan</p>
-                        </div>
-                    </a>
-
-                    <a href="{{ route('voice.index') }}" class="flex items-center p-4 bg-islamic-light rounded-lg hover:bg-green-100 transition duration-150">
-                        <div class="p-2 bg-purple-500 rounded-lg mr-4">
-                            <i class="fas fa-microphone text-white"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-900">Review Submission</p>
-                            <p class="text-sm text-gray-600">Review submission dari santri</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Islamic Quote -->
     <div class="mt-8 bg-gradient-to-r from-islamic-green to-green-600 rounded-lg shadow p-6">
