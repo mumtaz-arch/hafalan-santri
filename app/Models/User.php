@@ -92,4 +92,23 @@ class User extends Authenticatable
     {
         return $this->role === $role;
     }
+
+    /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
+    protected $appends = ['prefixed_name'];
+
+    /**
+     * Get the user's name with prefix based on role
+     */
+    public function getPrefixedNameAttribute()
+    {
+        if ($this->isUstad()) {
+            return 'Ustad ' . $this->name;
+        }
+
+        return $this->name;
+    }
 }

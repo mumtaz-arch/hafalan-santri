@@ -123,7 +123,7 @@
                                             @else
                                                 <i class="fas fa-user-check mr-2"></i>
                                             @endif
-                                            <span>Direview oleh: {{ $submission->reviewer->name }}</span>
+                                            <span>Direview oleh: {{ $submission->reviewer->prefixed_name }}</span>
                                         </div>
                                         @if($submission->reviewed_at)
                                             <span class="mx-2">•</span>

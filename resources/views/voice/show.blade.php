@@ -151,7 +151,7 @@
                                     </div>
                                 @endif
                                 <div>
-                                    <p class="font-medium text-gray-900">{{ $submission->reviewer->name }}</p>
+                                    <p class="font-medium text-gray-900">{{ $submission->reviewer->prefixed_name }}</p>
                                     <p class="text-sm text-gray-500">{{ $submission->formatted_reviewed_at }}</p>
                                 </div>
                             </div>

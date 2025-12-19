@@ -19,6 +19,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Load helper files
+        $this->loadHelpers();
+    }
+
+    /**
+     * Load custom helper files
+     */
+    protected function loadHelpers(): void
+    {
+        foreach (glob(app_path('Helpers/*.php')) as $filename) {
+            require_once $filename;
+        }
     }
 }

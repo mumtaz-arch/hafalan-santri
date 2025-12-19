@@ -223,7 +223,7 @@
                                                 @else
                                                     <i class="fas fa-user-check text-green-500 mr-1"></i>
                                                 @endif
-                                                {{ $submission->reviewer->name }}
+                                                {{ $submission->reviewer->prefixed_name }}
                                                 @if($submission->reviewed_at)
                                                     <div class="ml-2 text-xs text-gray-500">({{ $submission->formatted_reviewed_at }})</div>
                                                 @endif
@@ -443,7 +443,7 @@
                                             '<img src="' + window.location.origin + '/storage/' + data.reviewer.profile_photo + '" alt="' + data.reviewer.name + '" class="h-6 w-6 rounded-full object-cover mr-2 border-gray-300">' :
                                             '<i class="fas fa-user-check text-green-500 mr-1"></i>'
                                         }
-                                        ${data.reviewer.name} ${data.formatted_reviewed_at ? '(' + data.formatted_reviewed_at + ')' : ''}
+                                        ${data.reviewer.prefixed_name || data.reviewer.name} ${data.formatted_reviewed_at ? '(' + data.formatted_reviewed_at + ')' : ''}
                                     </span>` :
                                     '<span class="text-gray-400">Belum direview</span>'
                                 }
