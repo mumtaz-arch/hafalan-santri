@@ -10,6 +10,12 @@
 - 🎙️ **Voice Recording**: Rekam suara langsung di browser atau upload file audio
 - 📊 **Dashboard**: Monitoring real-time status hafalan per santri
 - 📄 **Export**: Cetak laporan hafalan dalam format PDF
+- 👤 **Avatar Inisial**: Menampilkan avatar dengan inisial nama jika tidak ada foto profil
+- 🏷️ **Prefix Otomatis**: Nama ustad otomatis ditampilkan dengan prefix "Ustad "
+- 🎨 **UI Konsisten**: Penyesuaian tampilan dan warna islamic-green sepanjang aplikasi
+- 🔐 **Keamanan**: Validasi password konsisten dan fitur keamanan tambahan
+- 📝 **Profile Lengkap**: Edit profil lengkap termasuk NISN dan kelas
+- 📋 **Detail Submission**: Tampilan detail submission yang dinamis dan informatif
 
 ---
 
@@ -150,6 +156,8 @@ benar - Copy/
 - ✅ Lihat riwayat hafalan
 - ✅ Tracking progress
 - ✅ Lihat feedback dari ustad
+- ✅ Edit profil lengkap (termasuk NISN dan kelas)
+- ✅ Lihat detail submission dengan informasi reviewer
 
 ### Ustad/Admin
 - ✅ Review hafalan santri
@@ -157,6 +165,8 @@ benar - Copy/
 - ✅ Kelola data santri
 - ✅ Kelola target hafalan
 - ✅ Export laporan
+- ✅ Lihat dan verifikasi akun ustad baru
+- ✅ Akses ke semua fitur administrasi
 
 ---
 
@@ -245,6 +255,26 @@ chmod -R 777 bootstrap/cache/
 - **Frontend**: Blade, Tailwind CSS
 - **Audio**: Web Audio API
 - **Build Tool**: Vite
+
+---
+
+## 🎨 Update Terbaru
+
+### Desain & UI/UX
+- **Avatar User**: Menampilkan avatar dengan inisial nama user jika tidak ada foto profil
+- **Prefix Otomatis**: Nama ustad otomatis ditampilkan dengan prefix "Ustad " di semua halaman
+- **Pagination Konsisten**: Tampilan pagination disesuaikan dengan tema islamic-green
+- **Navbar Konsisten**: Penyesuaian tampilan navbar antara guest dan authenticated user
+
+### Keamanan & Validasi
+- **Password Validation**: Validasi password konsisten di semua form (minimal 6 karakter)
+- **NISN Unique**: Validasi NISN unik untuk mencegah duplikasi data
+- **Session Management**: Penanganan session yang aman dan konsisten
+
+### Fungsionalitas
+- **Detail Submission**: Tampilan detail submission yang lebih informatif dan dinamis
+- **Edit Profil Lengkap**: Fitur edit profil lengkap termasuk NISN dan kelas untuk santri
+- **Verifikasi Ustad**: Fitur verifikasi akun ustad oleh admin
 
 ---
 
