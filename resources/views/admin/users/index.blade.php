@@ -93,9 +93,13 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
-                                            <div class="h-10 w-10 rounded-full bg-islamic-green flex items-center justify-center">
-                                                <span class="text-white font-medium">{{ substr($user->name, 0, 2) }}</span>
-                                            </div>
+                                            @if($user->profile_photo)
+                                                <img src="{{ asset('storage/' . $user->profile_photo) }}"
+                                                     alt="{{ $user->name }}"
+                                                     class="h-10 w-10 rounded-full object-cover border border-islamic-green">
+                                            @else
+                                                <x-user-avatar :user="$user" size="md" />
+                                            @endif
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">{{ $user->name }}</div>
@@ -182,17 +186,18 @@
     </div>
 
     <!-- Islamic Quote -->
-    <div class="mt-8 bg-gradient-to-r from-islamic-green to-green-600 rounded-lg shadow p-6 text-white">
-        <div class="text-center">
+
+    <div class="mt-8 bg-gradient-to-r from-islamic-green to-green-600 rounded-lg shadow p-6">
+        <div class="text-center text-white">
             <i class="fas fa-quote-left text-2xl mb-4 opacity-75"></i>
-            <p class="text-lg mb-2 font-medium">
-                "إِنَّمَا الْمُؤْمِنُونَ إِخْوَةٌ"
+            <p class="text-lg mb-2 font-medium text-islamic-green">
+                 "إِنَّمَا الْمُؤْمِنُونَ إِخْوَةٌ"
             </p>
-            <p class="text-sm opacity-90">
-                "Sesungguhnya orang-orang mukmin itu bersaudara." (QS. Al-Hujurat: 10)
+            <p class="text-sm opacity-90 text-islamic-green">
+               "Sesungguhnya orang-orang mukmin itu bersaudara." (QS. Al-Hujurat: 10)
             </p>
             <div class="mt-4 pt-4 border-t border-green-500">
-                <p class="text-sm">
+                <p class="text-sm text-islamic-green">
                     <i class="fas fa-calendar-alt mr-2"></i>
                     {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
                 </p>

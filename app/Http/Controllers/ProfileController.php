@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -48,6 +49,30 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui!');
+    }
+
+    /**
+     * Change user password
+     */
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        // Check if the current password is correct
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->route('profile.show')->with('error', 'Password saat ini salah!');
+        }
+
+        // Update password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->route('profile.show')->with('success', 'Password berhasil diubah!');
     }
 
     /**

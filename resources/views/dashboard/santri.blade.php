@@ -115,10 +115,19 @@
                                 </div>
                                 @if($submission->status !== 'pending' && $submission->reviewer)
                                     <div class="mt-2 flex items-center text-sm text-gray-500">
-                                        <i class="fas fa-user-check mr-2"></i>
-                                        <span>Direview oleh: {{ $submission->reviewer->name }}</span>
+                                        <div class="flex items-center">
+                                            @if($submission->reviewer->profile_photo)
+                                                <img src="{{ asset('storage/' . $submission->reviewer->profile_photo) }}"
+                                                     alt="{{ $submission->reviewer->name }}"
+                                                     class="h-5 w-5 rounded-full object-cover mr-2">
+                                            @else
+                                                <x-user-avatar :user="$submission->reviewer" size="xxs" class="mr-2" />
+                                            @endif
+                                            <span>Direview oleh: {{ $submission->reviewer->prefixed_name }}</span>
+                                        </div>
                                         @if($submission->reviewed_at)
-                                            <span class="ml-3">• {{ $submission->formatted_reviewed_at }}</span>
+                                            <span class="mx-2">•</span>
+                                            <span>{{ $submission->formatted_reviewed_at }}</span>
                                         @endif
                                     </div>
                                 @elseif($submission->status !== 'pending' && !$submission->reviewer)

@@ -216,15 +216,27 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         @if($submission->status !== 'pending' && $submission->reviewer)
                                             <div class="flex items-center">
-                                                <i class="fas fa-user-check text-green-500 mr-1"></i>
-                                                {{ $submission->reviewer->name }}
+                                                @if($submission->reviewer->profile_photo)
+                                                    <img src="{{ asset('storage/' . $submission->reviewer->profile_photo) }}"
+                                                         alt="{{ $submission->reviewer->name }}"
+                                                         class="h-6 w-6 rounded-full object-cover mr-2 border-gray-300">
+                                                @else
+                                                    <x-user-avatar :user="$submission->reviewer" size="xs" class="mr-1" />
+                                                @endif
+                                                {{ $submission->reviewer->prefixed_name }}
                                                 @if($submission->reviewed_at)
                                                     <div class="ml-2 text-xs text-gray-500">({{ $submission->formatted_reviewed_at }})</div>
                                                 @endif
                                             </div>
                                         @elseif($submission->status !== 'pending' && !$submission->reviewer)
                                             <div class="flex items-center">
-                                                <i class="fas fa-user-slash text-gray-400 mr-1"></i>
+                                                @if($submission->reviewer && $submission->reviewer->profile_photo)
+                                                    <img src="{{ asset('storage/' . $submission->reviewer->profile_photo) }}"
+                                                         alt="{{ $submission->reviewer->name }}"
+                                                         class="h-6 w-6 rounded-full object-cover mr-2 border-gray-300">
+                                                @else
+                                                    <x-user-avatar :user="$submission->reviewer" size="xs" class="mr-1" />
+                                                @endif
                                                 <span>Tidak diketahui</span>
                                             </div>
                                         @else
@@ -426,7 +438,13 @@
                             <h4 class="text-sm font-medium text-gray-500">Direview Oleh</h4>
                             <p class="mt-1 text-gray-900">
                                 ${data.status !== 'pending' && data.reviewer ?
-                                    `<span class="flex items-center"><i class="fas fa-user-check text-green-500 mr-1"></i> ${data.reviewer.name} ${data.formatted_reviewed_at ? '(' + data.formatted_reviewed_at + ')' : ''}</span>` :
+                                    `<span class="flex items-center">
+                                        \${data.reviewer.profile_photo ?
+                                            '<img src="' + window.location.origin + '/storage/' + data.reviewer.profile_photo + '" alt="' + (data.reviewer.prefixed_name || data.reviewer.name) + '" class="h-6 w-6 rounded-full object-cover mr-2 border-gray-300">' :
+                                            '<div class="w-6 h-6 rounded-full bg-islamic-green text-white font-bold text-xs flex items-center justify-center mr-2">' + (data.reviewer.initials || '?') + '</div>'
+                                        }
+                                        \${data.reviewer.prefixed_name || data.reviewer.name} \${data.formatted_reviewed_at ? '(' + data.formatted_reviewed_at + ')' : ''}
+                                    </span>` :
                                     '<span class="text-gray-400">Belum direview</span>'
                                 }
                             </p>

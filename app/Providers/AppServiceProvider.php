@@ -19,6 +19,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Load helper files
+        $this->loadHelpers();
+
+        // Set pagination view default
+        \Illuminate\Pagination\Paginator::defaultView('vendor.pagination.tailwind');
+        \Illuminate\Pagination\Paginator::defaultSimpleView('vendor.pagination.simple-bootstrap');
+    }
+
+    /**
+     * Load custom helper files
+     */
+    protected function loadHelpers(): void
+    {
+        foreach (glob(app_path('Helpers/*.php')) as $filename) {
+            require_once $filename;
+        }
     }
 }

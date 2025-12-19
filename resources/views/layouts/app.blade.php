@@ -81,6 +81,9 @@
                                 <a href="{{ route('admin.users.index') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('admin.*') ? 'bg-green-700' : '' }}">
                                     <i class="fas fa-users mr-1"></i> Manajemen Pengguna
                                 </a>
+                                <a href="{{ route('hafalan.index') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('hafalan.*') ? 'bg-green-700' : '' }}">
+                                    <i class="fas fa-book mr-1"></i> Data Hafalan
+                                </a>
                             @else
                                 <a href="{{ route('voice.index') }}" class="text-white hover:bg-green-700 px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('voice.*') ? 'bg-green-700' : '' }}">
                                     <i class="fas fa-microphone mr-1"></i>
@@ -101,11 +104,9 @@
                             @if(auth()->user()->profile_photo)
                                 <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" 
                                      alt="{{ auth()->user()->name }}"
-                                     class="h-10 w-10 rounded-full object-cover border-2 border-white mr-2">
+                                     class="h-10 w-10 rounded-full object-cover border border-white mr-2">
                             @else
-                                <div class="h-10 w-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-2">
-                                    <i class="fas fa-user text-white"></i>
-                                </div>
+                                <x-user-avatar :user="auth()->user()" size="md" class="mr-2" />
                             @endif
                             <div class="text-sm">
                                 <div class="font-medium">{{ auth()->user()->name }}</div>
@@ -140,6 +141,9 @@
                 @if(auth()->user()->isAdmin())
                     <a href="{{ route('admin.users.index') }}" class="text-white block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('admin.*') ? 'bg-green-700' : '' }}">
                         <i class="fas fa-users mr-2"></i> Manajemen Pengguna
+                    </a>
+                    <a href="{{ route('hafalan.index') }}" class="text-white block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('hafalan.*') ? 'bg-green-700' : '' }}">
+                        <i class="fas fa-book mr-2"></i> Data Hafalan
                     </a>
                 @else
                     <a href="{{ route('voice.index') }}" class="text-white block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('voice.*') ? 'bg-green-700' : '' }}">
