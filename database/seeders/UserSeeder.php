@@ -11,7 +11,7 @@ class UserSeeder extends Seeder
     {
         // Buat user ustad
         User::create([
-            'name' => 'Ustadz Ahmad',
+            'name' => 'Ahmad',
             'email' => 'ustad@maknende.edu',
             'password' => Hash::make('password'),
             'role' => 'ustad',
@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
 
         // Buat user santri contoh
         User::create([
-            'name' => 'Ahmad Santri',
+            'name' => 'Santri',
             'email' => 'santri@maknende.edu',
             'password' => Hash::make('password'),
             'role' => 'santri',
