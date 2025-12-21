@@ -63,7 +63,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'role' => 'required|in:santri,ustad',
-            'nisn' => 'nullable|string|max:20|unique:users',
+            'nisn' => 'nullable|string|max:10|unique:users',
             'kelas' => 'nullable|string|max:50',
         ], $this->passwordValidationRules()), array_merge([
             'name.required' => 'Nama lengkap wajib diisi',
@@ -73,6 +73,7 @@ class AuthController extends Controller
             'role.required' => 'Role wajib dipilih',
             'role.in' => 'Role harus santri atau ustad',
             'nisn.unique' => 'NISN sudah terdaftar',
+            'nisn.max' => 'NISN maksimal 10 karakter',
         ], $this->passwordValidationMessages()));
 
         // Determine verification status based on role
