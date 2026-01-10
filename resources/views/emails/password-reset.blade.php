@@ -1,39 +1,37 @@
 <x-mail::message>
-<!-- Greeting -->
 <x-slot:header>
 <x-mail::header :url="config('app.url')">
 Hafalan Santri MAKN Ende
 </x-mail::header>
 </x-slot:header>
 
-{{-- Header --}}
-# Halo {{ $user->name }},
+# Assalamualaikum Warahmatullahi Wabarakatuh,
 
-Anda menerima email ini karena ada permintaan reset kata sandi untuk akun Anda di Hafalan Santri MAKN Ende.
+Yth. **{{ $user->name }}**,
 
-## Reset Kata Sandi
-
-Silakan klik tombol di bawah ini untuk mereset kata sandi Anda:
+Kami menerima permintaan untuk mereset kata sandi akun **Hafalan Santri** Anda. Demi keamanan akun Anda, silakan klik tombol di bawah ini untuk melanjutkan proses perubahan kata sandi.
 
 <x-mail::button :url="$resetUrl">
 Reset Kata Sandi
 </x-mail::button>
 
-Jika tombol di atas tidak berfungsi, Anda juga bisa mengklik tautan berikut:
+**Harap diperhatikan:**
+- Tautan ini hanya berlaku selama **60 menit**.
+- Jika Anda tidak merasa melakukan permintaan ini, mohon abaikan email ini. Akun Anda tetap aman.
 
-[{{ $resetUrl }}]({{ $resetUrl }})
+Jika tombol di atas tidak berfungsi, salin dan tempel tautan berikut ke browser Anda:
+<span class="break-all">{{ $resetUrl }}</span>
 
-## Informasi Tambahan
+Terima kasih atas perhatian dan kerjasamanya.
 
-Jika Anda tidak meminta reset kata sandi, abaikan email ini. Email ini dibuat secara otomatis, mohon jangan balas email ini.
+Wassalamualaikum Warahmatullahi Wabarakatuh.
 
-<x-mail::subcopy>
-© {{ date('Y') }} Hafalan Santri MAKN Ende. Madrasah Aliyah Kejuruan Negeri Ende.
-</x-mail::subcopy>
+Hormat kami,<br>
+**Tim Teknis Hafalan Santri MAKN Ende**
 
+<x-slot:footer>
 <x-mail::footer>
-<x-mail::subcopy>
-© {{ date('Y') }} Hafalan Santri MAKN Ende. Madrasah Aliyah Kejuruan Negeri Ende.
-</x-mail::subcopy>
+© {{ date('Y') }} Hafalan Santri MAKN Ende. Semua hak dilindungi undang-undang.
 </x-mail::footer>
+</x-slot:footer>
 </x-mail::message>
